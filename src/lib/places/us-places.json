@@ -1,0 +1,2156 @@
+[
+  {
+    "id": "osm-node-3233791134",
+    "type": "place",
+    "name": "The Uncommons",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "cafe",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "230 Thompson Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.72942,
+      "lon": -73.99871
+    },
+    "website": "https://uncommonsnyc.com",
+    "mapUrl": "https://www.openstreetmap.org/node/3233791134",
+    "price": null,
+    "tags": [
+      "cafe",
+      "coffee shop",
+      "coffee",
+      "board games"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/3233791134",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-5265713182",
+    "type": "place",
+    "name": "Ferrara",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "cafe",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "195 Grand Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.7191,
+      "lon": -73.99706
+    },
+    "website": "https://www.ferraranyc.com",
+    "mapUrl": "https://www.openstreetmap.org/node/5265713182",
+    "price": null,
+    "tags": [
+      "cafe",
+      "italian",
+      "coffee",
+      "dessert",
+      "baking"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/5265713182",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-2486570141",
+    "type": "place",
+    "name": "Yonah Shimmel Knish Bakery",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "cafe",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "137 East Houston Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.72319,
+      "lon": -73.99013
+    },
+    "website": "http://www.knishery.com",
+    "mapUrl": "https://www.openstreetmap.org/node/2486570141",
+    "price": null,
+    "tags": [
+      "cafe",
+      "baking",
+      "food"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/2486570141",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-5700167968",
+    "type": "place",
+    "name": "Veselka",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "restaurant",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "144 2nd Avenue",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.72898,
+      "lon": -73.987
+    },
+    "website": "https://www.veselka.com/",
+    "mapUrl": "https://www.openstreetmap.org/node/5700167968",
+    "price": null,
+    "tags": [
+      "restaurant",
+      "ukrainian",
+      "food",
+      "brunch"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/5700167968",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-1915398676",
+    "type": "place",
+    "name": "Katz's Delicatessen",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "restaurant",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "205 East Houston Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.72234,
+      "lon": -73.98735
+    },
+    "website": "https://www.katzsdelicatessen.com",
+    "mapUrl": "https://www.openstreetmap.org/node/1915398676",
+    "price": null,
+    "tags": [
+      "restaurant",
+      "deli",
+      "food"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/1915398676",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-5254374730",
+    "type": "place",
+    "name": "Sarge's Delicatessan & Diner",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "restaurant",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "548 3rd Avenue",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.74734,
+      "lon": -73.9772
+    },
+    "website": "https://sargesdeli.com",
+    "mapUrl": "https://www.openstreetmap.org/node/5254374730",
+    "price": null,
+    "tags": [
+      "restaurant",
+      "jewish",
+      "diner",
+      "food"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/5254374730",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-427818536",
+    "type": "place",
+    "name": "Central Park",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": null,
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.78252,
+      "lon": -73.96551
+    },
+    "website": "https://www.centralparknyc.org",
+    "mapUrl": "https://www.openstreetmap.org/way/427818536",
+    "price": "free",
+    "tags": [
+      "park",
+      "walk",
+      "running",
+      "picnic",
+      "nature"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/427818536",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-relation-7141751",
+    "type": "place",
+    "name": "The High Line",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": null,
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.74795,
+      "lon": -74.00395
+    },
+    "website": "https://www.thehighline.org/",
+    "mapUrl": "https://www.openstreetmap.org/relation/7141751",
+    "price": "free",
+    "tags": [
+      "park",
+      "walk",
+      "art",
+      "architecture"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/relation/7141751",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-22727025",
+    "type": "place",
+    "name": "Bryant Park",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": null,
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.75375,
+      "lon": -73.98354
+    },
+    "website": "https://bryantpark.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/22727025",
+    "price": "free",
+    "tags": [
+      "park",
+      "walk",
+      "reading",
+      "picnic"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/22727025",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-22899286",
+    "type": "place",
+    "name": "Madison Square Park",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": "11 Madison Avenue",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.74219,
+      "lon": -73.98787
+    },
+    "website": "https://madisonsquarepark.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/22899286",
+    "price": "free",
+    "tags": [
+      "park",
+      "walk",
+      "art"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/22899286",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-relation-3698894",
+    "type": "place",
+    "name": "Metropolitan Museum of Art",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "1000 5th Avenue",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.7794,
+      "lon": -73.96342
+    },
+    "website": "https://www.metmuseum.org/",
+    "mapUrl": "https://www.openstreetmap.org/relation/3698894",
+    "price": null,
+    "tags": [
+      "museum",
+      "art",
+      "history"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/relation/3698894",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-388436810",
+    "type": "place",
+    "name": "American Museum of Natural History",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "200 Central Park West",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.7811,
+      "lon": -73.97421
+    },
+    "website": "https://www.amnh.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/388436810",
+    "price": null,
+    "tags": [
+      "museum",
+      "science",
+      "history",
+      "nature"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/388436810",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-278346578",
+    "type": "place",
+    "name": "MoMA",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "11 West 53rd Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.76161,
+      "lon": -73.97755
+    },
+    "website": "https://www.moma.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/278346578",
+    "price": null,
+    "tags": [
+      "museum",
+      "art",
+      "design",
+      "film"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/278346578",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-266170808",
+    "type": "place",
+    "name": "Radio City Music Hall",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "venue",
+    "kind": "concerts-events",
+    "setting": "indoor",
+    "address": "1260 6th Avenue",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.75982,
+      "lon": -73.97927
+    },
+    "website": "https://www.msg.com/radio-city-music-hall",
+    "mapUrl": "https://www.openstreetmap.org/way/266170808",
+    "price": null,
+    "tags": [
+      "venue",
+      "music",
+      "concert",
+      "dance"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/266170808",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-265354527",
+    "type": "place",
+    "name": "David Geffen Hall",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "venue",
+    "kind": "concerts-events",
+    "setting": "indoor",
+    "address": "10 Lincoln Center Plaza",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.77282,
+      "lon": -73.98302
+    },
+    "website": "http://www.lincolncenter.org/venue/david-geffen-hall",
+    "mapUrl": "https://www.openstreetmap.org/way/265354527",
+    "price": null,
+    "tags": [
+      "venue",
+      "music",
+      "concert",
+      "orchestra"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/265354527",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-681503639",
+    "type": "place",
+    "name": "The Shed",
+    "localName": null,
+    "city": "new-york",
+    "country": "United States",
+    "category": "venue",
+    "kind": "concerts-events",
+    "setting": "indoor",
+    "address": "545 West 30th Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 40.75328,
+      "lon": -74.00271
+    },
+    "website": "https://theshed.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/681503639",
+    "price": null,
+    "tags": [
+      "venue",
+      "art",
+      "music",
+      "performance"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/681503639",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-331389010",
+    "type": "place",
+    "name": "Caffe Trieste",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "cafe",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "601 Vallejo Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.79867,
+      "lon": -122.4073
+    },
+    "website": "https://caffetrieste.com/",
+    "mapUrl": "https://www.openstreetmap.org/node/331389010",
+    "price": null,
+    "tags": [
+      "cafe",
+      "coffee shop",
+      "coffee",
+      "music"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/331389010",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-443372068",
+    "type": "place",
+    "name": "Ritual Coffee Roasters",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "cafe",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "1026 Valencia Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.75643,
+      "lon": -122.42125
+    },
+    "website": "https://ritualroasters.com/",
+    "mapUrl": "https://www.openstreetmap.org/node/443372068",
+    "price": null,
+    "tags": [
+      "cafe",
+      "coffee shop",
+      "coffee"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/443372068",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-276049451",
+    "type": "place",
+    "name": "The Fold",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "cafe",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "3359 26th Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.74883,
+      "lon": -122.41729
+    },
+    "website": "https://www.thefoldsf.com/",
+    "mapUrl": "https://www.openstreetmap.org/way/276049451",
+    "price": null,
+    "tags": [
+      "cafe",
+      "coffee shop",
+      "coffee"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/276049451",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-366701342",
+    "type": "place",
+    "name": "Original Joe's",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "restaurant",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "601 Union Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.80033,
+      "lon": -122.40933
+    },
+    "website": "https://originaljoes.com/",
+    "mapUrl": "https://www.openstreetmap.org/node/366701342",
+    "price": null,
+    "tags": [
+      "restaurant",
+      "italian",
+      "burger",
+      "pasta",
+      "food"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/366701342",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-3702219083",
+    "type": "place",
+    "name": "Tony's Pizza Napoletana",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "restaurant",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "1570 Stockton Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.80033,
+      "lon": -122.40905
+    },
+    "website": "https://tonyspizzanapoletana.com/",
+    "mapUrl": "https://www.openstreetmap.org/node/3702219083",
+    "price": null,
+    "tags": [
+      "restaurant",
+      "pizza",
+      "food"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/3702219083",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-1221046206",
+    "type": "place",
+    "name": "Sam Wo Restaurant",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "restaurant",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "713 Clay Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.79434,
+      "lon": -122.40513
+    },
+    "website": "https://samworestaurant.com",
+    "mapUrl": "https://www.openstreetmap.org/node/1221046206",
+    "price": null,
+    "tags": [
+      "restaurant",
+      "chinese",
+      "food"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/1221046206",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-relation-8346137",
+    "type": "place",
+    "name": "Presidio of San Francisco",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": null,
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.79892,
+      "lon": -122.46618
+    },
+    "website": "https://www.presidio.gov/",
+    "mapUrl": "https://www.openstreetmap.org/relation/8346137",
+    "price": "free",
+    "tags": [
+      "park",
+      "hiking",
+      "walk",
+      "nature",
+      "running"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/relation/8346137",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-23871270",
+    "type": "place",
+    "name": "Mission Dolores Park",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": null,
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.75976,
+      "lon": -122.42713
+    },
+    "website": "https://sfrecpark.org/destination/mission-dolores-park/",
+    "mapUrl": "https://www.openstreetmap.org/way/23871270",
+    "price": "free",
+    "tags": [
+      "park",
+      "picnic",
+      "walk"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/23871270",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-28842443",
+    "type": "place",
+    "name": "Yerba Buena Gardens",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": "750 Howard Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.78465,
+      "lon": -122.4024
+    },
+    "website": "https://www.yerbabuenagardens.com",
+    "mapUrl": "https://www.openstreetmap.org/way/28842443",
+    "price": "free",
+    "tags": [
+      "park",
+      "walk",
+      "art",
+      "garden"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/28842443",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-16751737",
+    "type": "place",
+    "name": "Alta Plaza Park",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": null,
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.79118,
+      "lon": -122.43767
+    },
+    "website": "https://sfrecpark.org/destination/alta-plaza-park/",
+    "mapUrl": "https://www.openstreetmap.org/way/16751737",
+    "price": "free",
+    "tags": [
+      "park",
+      "walk",
+      "running"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/16751737",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-41692824",
+    "type": "place",
+    "name": "San Francisco Museum of Modern Art",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "151 3rd Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.78594,
+      "lon": -122.40063
+    },
+    "website": "https://www.sfmoma.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/41692824",
+    "price": null,
+    "tags": [
+      "museum",
+      "art",
+      "design",
+      "photography"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/41692824",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-relation-1652482",
+    "type": "place",
+    "name": "de Young Museum",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "50 Hagiwara Tea Garden Drive",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.7715,
+      "lon": -122.46872
+    },
+    "website": "https://www.famsf.org/",
+    "mapUrl": "https://www.openstreetmap.org/relation/1652482",
+    "price": null,
+    "tags": [
+      "museum",
+      "art",
+      "history"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/relation/1652482",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-28695389",
+    "type": "place",
+    "name": "California Academy of Sciences",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "55 Music Concourse Drive",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.76983,
+      "lon": -122.46609
+    },
+    "website": "https://www.calacademy.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/28695389",
+    "price": null,
+    "tags": [
+      "museum",
+      "science",
+      "nature"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/28695389",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-368166365",
+    "type": "place",
+    "name": "Musée Mécanique",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "Pier 45 Fishermans Wharf",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.80925,
+      "lon": -122.41579
+    },
+    "website": "https://museemecanique.com/",
+    "mapUrl": "https://www.openstreetmap.org/node/368166365",
+    "price": null,
+    "tags": [
+      "museum",
+      "gaming",
+      "history"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/368166365",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-368171371",
+    "type": "place",
+    "name": "The Fillmore",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "venue",
+    "kind": "concerts-events",
+    "setting": "indoor",
+    "address": "1805 Geary Boulevard",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.78408,
+      "lon": -122.43317
+    },
+    "website": "http://thefillmore.com",
+    "mapUrl": "https://www.openstreetmap.org/node/368171371",
+    "price": null,
+    "tags": [
+      "venue",
+      "music",
+      "concert"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/368171371",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-256733182",
+    "type": "place",
+    "name": "Great Star Theater",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "venue",
+    "kind": "concerts-events",
+    "setting": "indoor",
+    "address": "636 Jackson Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.79636,
+      "lon": -122.4058
+    },
+    "website": "https://greatstartheater.org",
+    "mapUrl": "https://www.openstreetmap.org/way/256733182",
+    "price": null,
+    "tags": [
+      "venue",
+      "film",
+      "performance",
+      "theatre"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/256733182",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-32866034",
+    "type": "place",
+    "name": "Club Fugazi",
+    "localName": null,
+    "city": "san-francisco",
+    "country": "United States",
+    "category": "venue",
+    "kind": "concerts-events",
+    "setting": "indoor",
+    "address": "678 Green Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 37.79964,
+      "lon": -122.41028
+    },
+    "website": "https://www.clubfugazisf.com/",
+    "mapUrl": "https://www.openstreetmap.org/way/32866034",
+    "price": null,
+    "tags": [
+      "venue",
+      "performance",
+      "theatre",
+      "comedy"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/32866034",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-1308260687",
+    "type": "place",
+    "name": "Intelligentsia Coffee",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "cafe",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "53 East Randolph Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.88435,
+      "lon": -87.62586
+    },
+    "website": "https://www.intelligentsiacoffee.com/millennium-park-coffeebar",
+    "mapUrl": "https://www.openstreetmap.org/node/1308260687",
+    "price": null,
+    "tags": [
+      "cafe",
+      "coffee shop",
+      "coffee"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/1308260687",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-6322570530",
+    "type": "place",
+    "name": "Dark Matter Coffee - Meddle",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "cafe",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "601 West Jackson Boulevard",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.8779,
+      "lon": -87.64286
+    },
+    "website": "https://www.darkmattercoffee.com/blogs/news/introducing-meddle",
+    "mapUrl": "https://www.openstreetmap.org/node/6322570530",
+    "price": null,
+    "tags": [
+      "cafe",
+      "coffee shop",
+      "coffee"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/6322570530",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-4953114355",
+    "type": "place",
+    "name": "Ground Up",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "cafe",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "900 West Van Buren Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.87677,
+      "lon": -87.64971
+    },
+    "website": "https://groundupchicago.com",
+    "mapUrl": "https://www.openstreetmap.org/node/4953114355",
+    "price": null,
+    "tags": [
+      "cafe",
+      "coffee shop",
+      "coffee"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/4953114355",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-150864783",
+    "type": "place",
+    "name": "Lou Mitchell's Restaurant",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "restaurant",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "565 West Jackson Boulevard",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.87782,
+      "lon": -87.64213
+    },
+    "website": "http://www.loumitchellsrestaurant.com/",
+    "mapUrl": "https://www.openstreetmap.org/way/150864783",
+    "price": null,
+    "tags": [
+      "restaurant",
+      "american",
+      "food",
+      "brunch"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/150864783",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-2203666226",
+    "type": "place",
+    "name": "Greek Islands",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "restaurant",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "200 South Halsted Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.87899,
+      "lon": -87.64751
+    },
+    "website": "https://greekislands.net/",
+    "mapUrl": "https://www.openstreetmap.org/node/2203666226",
+    "price": null,
+    "tags": [
+      "restaurant",
+      "greek",
+      "food"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/2203666226",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-368064192",
+    "type": "place",
+    "name": "The Berghoff Restaurant",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "restaurant",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "17 West Adams Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.87935,
+      "lon": -87.62848
+    },
+    "website": "https://www.theberghoff.com/",
+    "mapUrl": "https://www.openstreetmap.org/node/368064192",
+    "price": null,
+    "tags": [
+      "restaurant",
+      "german",
+      "food"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/368064192",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-23888253",
+    "type": "place",
+    "name": "Millennium Park",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": "201 East Randolph Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.88262,
+      "lon": -87.62252
+    },
+    "website": "https://www.cityofchicago.org/city/en/depts/dca/supp_info/millennium_park.html",
+    "mapUrl": "https://www.openstreetmap.org/way/23888253",
+    "price": "free",
+    "tags": [
+      "park",
+      "walk",
+      "art",
+      "music"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/23888253",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-224231352",
+    "type": "place",
+    "name": "Maggie Daley Park",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": "337 East Randolph Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.88272,
+      "lon": -87.61761
+    },
+    "website": "https://maggiedaleypark.com/",
+    "mapUrl": "https://www.openstreetmap.org/way/224231352",
+    "price": "free",
+    "tags": [
+      "park",
+      "walk",
+      "outdoors"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/224231352",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-relation-11610689",
+    "type": "place",
+    "name": "Lincoln (Abraham) Park",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": "500-5700 North Lake Shore Drive",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.94104,
+      "lon": -87.63301
+    },
+    "website": "https://www.chicagoparkdistrict.com/parks-facilities/lincoln-abraham-park",
+    "mapUrl": "https://www.openstreetmap.org/relation/11610689",
+    "price": "free",
+    "tags": [
+      "park",
+      "walk",
+      "running",
+      "cycling",
+      "nature"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/relation/11610689",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-relation-13360336",
+    "type": "place",
+    "name": "Bloomingdale Trail Park",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": "1600-3750 West Bloomingdale Avenue",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.91396,
+      "lon": -87.69406
+    },
+    "website": "https://www.chicagoparkdistrict.com/parks-facilities/bloomingdale-trail-park",
+    "mapUrl": "https://www.openstreetmap.org/relation/13360336",
+    "price": "free",
+    "tags": [
+      "park",
+      "walk",
+      "running",
+      "cycling"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/relation/13360336",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-relation-1870546",
+    "type": "place",
+    "name": "The Art Institute of Chicago",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "111 South Michigan Avenue",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.87956,
+      "lon": -87.62257
+    },
+    "website": "https://www.artic.edu/",
+    "mapUrl": "https://www.openstreetmap.org/relation/1870546",
+    "price": null,
+    "tags": [
+      "museum",
+      "art",
+      "history"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/relation/1870546",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-24825537",
+    "type": "place",
+    "name": "Field Museum",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "1400 South Lake Shore Drive",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.86621,
+      "lon": -87.6169
+    },
+    "website": "https://www.fieldmuseum.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/24825537",
+    "price": null,
+    "tags": [
+      "museum",
+      "science",
+      "history",
+      "nature"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/24825537",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-24800223",
+    "type": "place",
+    "name": "Museum of Contemporary Art",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "220 East Chicago Avenue",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.89722,
+      "lon": -87.62122
+    },
+    "website": "https://mcachicago.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/24800223",
+    "price": null,
+    "tags": [
+      "museum",
+      "art",
+      "design"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/24800223",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-202372249",
+    "type": "place",
+    "name": "National Museum of Mexican Art",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "1852 West 19th Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.85617,
+      "lon": -87.67299
+    },
+    "website": "https://www.nationalmuseumofmexicanart.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/202372249",
+    "price": null,
+    "tags": [
+      "museum",
+      "art",
+      "history"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/202372249",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-124873919",
+    "type": "place",
+    "name": "Chicago Theatre",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "venue",
+    "kind": "concerts-events",
+    "setting": "indoor",
+    "address": "175 North State Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.88541,
+      "lon": -87.6273
+    },
+    "website": "https://www.thechicagotheatre.com",
+    "mapUrl": "https://www.openstreetmap.org/way/124873919",
+    "price": null,
+    "tags": [
+      "venue",
+      "music",
+      "concert",
+      "comedy",
+      "theatre"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/124873919",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-145493030",
+    "type": "place",
+    "name": "Theodore Thomas Orchestra Hall",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "venue",
+    "kind": "concerts-events",
+    "setting": "indoor",
+    "address": "220 South Michigan Avenue",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.87898,
+      "lon": -87.6251
+    },
+    "website": "https://cso.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/145493030",
+    "price": null,
+    "tags": [
+      "venue",
+      "music",
+      "concert",
+      "orchestra",
+      "jazz"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/145493030",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-210315491",
+    "type": "place",
+    "name": "Steppenwolf Theatre",
+    "localName": null,
+    "city": "chicago",
+    "country": "United States",
+    "category": "venue",
+    "kind": "concerts-events",
+    "setting": "indoor",
+    "address": "1650 North Halsted Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 41.91257,
+      "lon": -87.64868
+    },
+    "website": "https://www.steppenwolf.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/210315491",
+    "price": null,
+    "tags": [
+      "venue",
+      "theatre",
+      "performance"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/210315491",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-10563618404",
+    "type": "place",
+    "name": "Medici Roasting",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "cafe",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "1100 South Lamar Boulevard",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.25576,
+      "lon": -97.76237
+    },
+    "website": "https://mediciroasting.com/pages/south-lamar",
+    "mapUrl": "https://www.openstreetmap.org/node/10563618404",
+    "price": null,
+    "tags": [
+      "cafe",
+      "coffee shop",
+      "coffee"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/10563618404",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-919335942",
+    "type": "place",
+    "name": "Bennu Coffee Shop",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "cafe",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "515 South Congress Avenue",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.25611,
+      "lon": -97.7462
+    },
+    "website": "https://bennucoffee.com/",
+    "mapUrl": "https://www.openstreetmap.org/node/919335942",
+    "price": null,
+    "tags": [
+      "cafe",
+      "coffee"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/919335942",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-node-7111030356",
+    "type": "place",
+    "name": "The Pershing Café",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "cafe",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "2501 E 5th St",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.25768,
+      "lon": -97.71498
+    },
+    "website": "https://thepershing.com/pershing-cafe/",
+    "mapUrl": "https://www.openstreetmap.org/node/7111030356",
+    "price": null,
+    "tags": [
+      "cafe",
+      "pastry",
+      "coffee",
+      "baking"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/node/7111030356",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-382368408",
+    "type": "place",
+    "name": "Franklin Barbecue",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "restaurant",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "900 East 11th Street",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.27016,
+      "lon": -97.73127
+    },
+    "website": "http://franklinbarbecue.com/",
+    "mapUrl": "https://www.openstreetmap.org/way/382368408",
+    "price": null,
+    "tags": [
+      "restaurant",
+      "barbecue",
+      "food"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/382368408",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-383355208",
+    "type": "place",
+    "name": "Uchi",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "restaurant",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "801 South Lamar Boulevard",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.25751,
+      "lon": -97.75975
+    },
+    "website": "https://www.uchiaustin.com/",
+    "mapUrl": "https://www.openstreetmap.org/way/383355208",
+    "price": null,
+    "tags": [
+      "restaurant",
+      "japanese",
+      "sushi",
+      "food"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/383355208",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-383355338",
+    "type": "place",
+    "name": "Ramen Tatsu-ya",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "restaurant",
+    "kind": "food-coffee",
+    "setting": "indoor",
+    "address": "1234 South Lamar Boulevard",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.25396,
+      "lon": -97.76327
+    },
+    "website": "https://www.ramen-tatsuya.com/locations",
+    "mapUrl": "https://www.openstreetmap.org/way/383355338",
+    "price": null,
+    "tags": [
+      "restaurant",
+      "noodle",
+      "ramen",
+      "food"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/383355338",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-relation-13307353",
+    "type": "place",
+    "name": "Zilker Metropolitan Park",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": null,
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.26932,
+      "lon": -97.77131
+    },
+    "website": null,
+    "mapUrl": "https://www.openstreetmap.org/relation/13307353",
+    "price": "free",
+    "tags": [
+      "park",
+      "walk",
+      "running",
+      "picnic",
+      "outdoors"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/relation/13307353",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-relation-5716409",
+    "type": "place",
+    "name": "Barton Creek Greenbelt",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": "3753 Capital of Texas Highway",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.26141,
+      "lon": -97.80747
+    },
+    "website": "https://www.austintexas.gov/page/park-directory",
+    "mapUrl": "https://www.openstreetmap.org/relation/5716409",
+    "price": "free",
+    "tags": [
+      "park",
+      "hiking",
+      "nature",
+      "running",
+      "outdoors"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/relation/5716409",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-relation-8268247",
+    "type": "place",
+    "name": "Auditorium Shores at Town Lake Metropolitan Park",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "park",
+    "kind": "parks-outdoors",
+    "setting": "outdoor",
+    "address": "800 West Riverside Drive",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.26177,
+      "lon": -97.7513
+    },
+    "website": null,
+    "mapUrl": "https://www.openstreetmap.org/relation/8268247",
+    "price": "free",
+    "tags": [
+      "park",
+      "walk",
+      "running",
+      "music"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/relation/8268247",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-relation-20972967",
+    "type": "place",
+    "name": "Blanton Museum of Art",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "200 East Martin Luther King Jr Boulevard",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.28098,
+      "lon": -97.73742
+    },
+    "website": "https://blantonmuseum.org/",
+    "mapUrl": "https://www.openstreetmap.org/relation/20972967",
+    "price": null,
+    "tags": [
+      "museum",
+      "art"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/relation/20972967",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-27397820",
+    "type": "place",
+    "name": "Texas State History Museum",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "1800 North Congress Avenue",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.28029,
+      "lon": -97.73916
+    },
+    "website": "https://www.thestoryoftexas.com/",
+    "mapUrl": "https://www.openstreetmap.org/way/27397820",
+    "price": null,
+    "tags": [
+      "museum",
+      "history"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/27397820",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-929864020",
+    "type": "place",
+    "name": "The Contemporary Austin - Jones Center on Congress Avenue",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": "700 Congress Avenue",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.26927,
+      "lon": -97.74282
+    },
+    "website": "https://thecontemporaryaustin.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/929864020",
+    "price": null,
+    "tags": [
+      "museum",
+      "art",
+      "design"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/929864020",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-1266596014",
+    "type": "place",
+    "name": "Umlauf Sculpture Garden & Museum",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "museum",
+    "kind": "culture-activities",
+    "setting": "indoor",
+    "address": null,
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.26304,
+      "lon": -97.76624
+    },
+    "website": "https://www.umlaufsculpture.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/1266596014",
+    "price": null,
+    "tags": [
+      "museum",
+      "art",
+      "garden"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/1266596014",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-328526454",
+    "type": "place",
+    "name": "Paramount Theatre",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "venue",
+    "kind": "concerts-events",
+    "setting": "indoor",
+    "address": "713 Congress Avenue",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.26938,
+      "lon": -97.74186
+    },
+    "website": "https://www.austintheatre.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/328526454",
+    "price": null,
+    "tags": [
+      "venue",
+      "film",
+      "comedy",
+      "music",
+      "theatre"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/328526454",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-187668220",
+    "type": "place",
+    "name": "The Long Center for the Performing Arts",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "venue",
+    "kind": "concerts-events",
+    "setting": "indoor",
+    "address": "701 West Riverside Drive",
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.26026,
+      "lon": -97.75112
+    },
+    "website": "https://thelongcenter.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/187668220",
+    "price": null,
+    "tags": [
+      "venue",
+      "music",
+      "concert",
+      "dance",
+      "theatre"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/187668220",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  },
+  {
+    "id": "osm-way-1317157542",
+    "type": "place",
+    "name": "ZACH Theatre",
+    "localName": null,
+    "city": "austin",
+    "country": "United States",
+    "category": "venue",
+    "kind": "concerts-events",
+    "setting": "indoor",
+    "address": null,
+    "localAddress": null,
+    "coordinates": {
+      "lat": 30.26422,
+      "lon": -97.75829
+    },
+    "website": "https://zachtheatre.org/",
+    "mapUrl": "https://www.openstreetmap.org/way/1317157542",
+    "price": null,
+    "tags": [
+      "venue",
+      "theatre",
+      "performance"
+    ],
+    "source": {
+      "name": "OpenStreetMap",
+      "url": "https://www.openstreetmap.org/way/1317157542",
+      "attribution": "© OpenStreetMap contributors (ODbL)",
+      "kind": "curated"
+    },
+    "lastVerified": "2026-11-15"
+  }
+]

@@ -9,7 +9,12 @@ import {
   DEFAULT_DEADLINE_MS,
   geminiBrain,
   investigationBasis,
+  MAX_COACH_QUESTIONS,
+  MAX_TOTAL_ROUNDS,
   runInvestigation,
+  screenCoachQuestion,
+  topicSchema,
+  turnSchema,
   type AgentEvent,
   type AgentSession,
 } from "@/lib/agents";
@@ -25,6 +30,17 @@ const bodySchema = z.object({
   processingConsent: z.literal(true),
   /** Reuse a recent identical, completed conversation instead of new calls. */
   reuse: z.boolean().default(true),
+  /** Coach Mode suggestions; each is screened again on the server. */
+  coach: z.array(z.string().max(200)).max(MAX_COACH_QUESTIONS).default([]),
+  /** Continue an earlier verified conversation with Coach Mode rounds only. */
+  prior: z
+    .object({
+      turns: z.array(turnSchema).max(MAX_TOTAL_ROUNDS * 2),
+      topics: z.array(topicSchema).max(MAX_TOTAL_ROUNDS),
+      modelCalls: z.number().int().min(0).max(40).default(0),
+    })
+    .nullable()
+    .default(null),
 });
 
 /**
@@ -43,6 +59,8 @@ function reuseKey(body: z.infer<typeof bodySchema>) {
     body.b.id,
     investigationBasis(body.a, body.b),
     handled,
+    body.coach,
+    body.prior?.turns.map((t) => t.id + t.text) ?? null,
   ]);
 }
 
@@ -64,6 +82,25 @@ export async function POST(req: NextRequest) {
       throw new AIError(
         "INELIGIBLE",
         "Matchmakers only investigate introductions that meet both people's requirements.",
+        400,
+      );
+    // Coach Mode: screened again here (never trust the client), bounded in
+    // total per conversation, and a continuation must actually add a round.
+    for (const q of body.coach) {
+      const screen = screenCoachQuestion(q);
+      if (!screen.ok) throw new AIError("COACH_REJECTED", screen.reason, 400);
+    }
+    const used = body.prior?.topics.filter((t) => t.coach).length ?? 0;
+    if (used + body.coach.length > MAX_COACH_QUESTIONS)
+      throw new AIError(
+        "COACH_LIMIT",
+        `Coach Mode allows ${MAX_COACH_QUESTIONS} questions per introduction on the free plan.`,
+        429,
+      );
+    if (body.prior && !body.coach.length)
+      throw new AIError(
+        "INVALID_INPUT",
+        "A continuation needs a Coach Mode question.",
         400,
       );
   } catch (error) {
@@ -116,6 +153,8 @@ export async function POST(req: NextRequest) {
           onEvent: send,
           deadlineMs: DEFAULT_DEADLINE_MS,
           signal: abort.signal,
+          coach: body.coach,
+          prior: body.prior ?? undefined,
         });
         if (session.status === "complete") {
           if (recent.size > 200) recent.clear();
@@ -143,7 +182,10 @@ export async function POST(req: NextRequest) {
   return new Response(stream, {
     headers: {
       "Content-Type": "application/x-ndjson; charset=utf-8",
-      "Cache-Control": "no-store",
+      // Each verified turn must reach the browser as soon as it is ready:
+      // no proxy buffering and no transform (compression) of the stream.
+      "Cache-Control": "no-store, no-transform",
+      "X-Accel-Buffering": "no",
       "X-Content-Type-Options": "nosniff",
     },
   });

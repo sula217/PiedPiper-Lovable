@@ -3,7 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { Mic, Square, Volume2 } from "lucide-react";
 import { Button } from "./ui/button";
 import {
+  rankVoices,
   recognitionConstructor,
+  speakableText,
   speechError,
   type Recognizer,
 } from "@/lib/speech";
@@ -25,7 +27,24 @@ export function VoiceInput({
     [recording, setRecording] = useState(false),
     [interim, setInterim] = useState(""),
     [error, setError] = useState(""),
-    [spoken, setSpoken] = useState(false);
+    [spoken, setSpoken] = useState(false),
+    [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]),
+    [voiceURI, setVoiceURI] = useState(""),
+    [rate, setRate] = useState(1),
+    [speaking, setSpeaking] = useState(false);
+  // Voices load asynchronously in most browsers.
+  useEffect(() => {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    const load = () => {
+      const ranked = rankVoices(window.speechSynthesis.getVoices?.() ?? []);
+      setVoices(ranked);
+      setVoiceURI((v) => v || ranked[0]?.voiceURI || "");
+    };
+    load();
+    window.speechSynthesis.addEventListener?.("voiceschanged", load);
+    return () =>
+      window.speechSynthesis.removeEventListener?.("voiceschanged", load);
+  }, []);
   const recognition = useRef<Recognizer | null>(null),
     timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const current = useRef(value),
@@ -61,11 +80,20 @@ export function VoiceInput({
     )
       return;
     window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(reply);
-    utterance.lang = "en-US";
+    const utterance = new SpeechSynthesisUtterance(speakableText(reply));
+    const voice = voices.find((v) => v.voiceURI === voiceURI);
+    if (voice) utterance.voice = voice;
+    utterance.lang = voice?.lang ?? "en-US";
+    utterance.rate = rate;
+    utterance.pitch = 1;
+    utterance.onstart = () => setSpeaking(true);
+    utterance.onend = utterance.onerror = () => setSpeaking(false);
     window.speechSynthesis.speak(utterance);
-    return () => window.speechSynthesis.cancel();
-  }, [reply, spoken, recording, disabled]);
+    return () => {
+      window.speechSynthesis.cancel();
+      setSpeaking(false);
+    };
+  }, [reply, spoken, recording, disabled, voices, voiceURI, rate]);
   function stop() {
     recognition.current?.stop();
     if (timer.current) clearTimeout(timer.current);
@@ -242,6 +270,43 @@ export function VoiceInput({
           <Volume2 size={14} />
           Read Piper’s responses aloud (browser voice)
         </label>
+        {spoken && (
+          <div className="voice-settings">
+            {voices.length > 1 && (
+              <label>
+                Voice
+                <select
+                  value={voiceURI}
+                  onChange={(e) => setVoiceURI(e.target.value)}
+                >
+                  {voices.map((v) => (
+                    <option key={v.voiceURI} value={v.voiceURI}>
+                      {v.name} ({v.lang})
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+            <label>
+              Speed
+              <select
+                value={rate}
+                onChange={(e) => setRate(Number(e.target.value))}
+              >
+                <option value={0.9}>Relaxed</option>
+                <option value={1}>Normal</option>
+                <option value={1.15}>Brisk</option>
+              </select>
+            </label>
+            <span className="voice-state" role="status">
+              {speaking
+                ? "Piper is speaking…"
+                : voices.length
+                  ? "Waiting for Piper’s next reply"
+                  : "No English browser voice found — replies stay text-only"}
+            </span>
+          </div>
+        )}
         <div className="voice-buttons">
           {spoken && (
             <button

@@ -20,13 +20,16 @@ import {
 } from "@/lib/planning";
 
 const commonZones = [
-  "Asia/Almaty",
-  "Europe/Moscow",
-  "Europe/Istanbul",
   "America/New_York",
   "America/Chicago",
   "America/Denver",
   "America/Los_Angeles",
+  "America/Phoenix",
+  "America/Anchorage",
+  "Pacific/Honolulu",
+  "Asia/Almaty",
+  "Europe/Moscow",
+  "Europe/Istanbul",
   "Europe/London",
   "Europe/Berlin",
   "Asia/Tokyo",

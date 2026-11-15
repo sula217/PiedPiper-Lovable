@@ -14,6 +14,7 @@ import {
 } from "./planning";
 import {
   cities,
+  formatMoney,
   type CityId,
   type DateEvent,
   type Place,
@@ -47,7 +48,9 @@ export type DiscoveryFilters = {
   when: "any" | "fits";
   sharedInterestsOnly: boolean;
 };
-export const defaultFilters = (city: CityId = "astana"): DiscoveryFilters => ({
+export const defaultFilters = (
+  city: CityId = "new-york",
+): DiscoveryFilters => ({
   city,
   kinds: [],
   budget: null,
@@ -123,7 +126,7 @@ export function budgetMax(city: CityId, b: BudgetLevel | null) {
 export function priceLabel(v: Venue) {
   if (v.price === "free") return "Free to enter (public park)";
   if (!v.price) return "Price not listed";
-  return `From ₸${v.price.from.toLocaleString("en-US")} · listed price, may change`;
+  return `From ${formatMoney(v.price.from, v.price.currency)} · listed price, may change`;
 }
 const priceValue = (v: Venue) =>
   v.price === "free" ? 0 : v.price ? v.price.from : null;

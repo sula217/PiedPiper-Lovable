@@ -16,6 +16,7 @@ import { Portrait } from "./portrait";
 import { Button } from "./ui/button";
 import { SafetyModal } from "./discover";
 import { DatePlanner } from "./date-planner";
+import { Icebreakers } from "./icebreakers";
 import { dispatchDemo, matched, useDemo } from "@/lib/demo-store";
 import { formatWindow, proposalStatusLabel } from "@/lib/planning";
 export function Connections({
@@ -181,6 +182,15 @@ export function Connections({
                   </div>
                 ))}
             </div>
+            <Icebreakers
+              key={peer.id}
+              profile={state.profile}
+              peer={peer}
+              onUse={(t) => {
+                setText(t);
+                document.getElementById("composer-input")?.focus();
+              }}
+            />
             <div className="message-composer">
               <div className="demo-reply-bar">
                 <span>
@@ -201,6 +211,7 @@ export function Connections({
                 }}
               >
                 <input
+                  id="composer-input"
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   maxLength={2000}

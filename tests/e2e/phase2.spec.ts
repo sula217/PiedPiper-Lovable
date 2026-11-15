@@ -29,7 +29,7 @@ test("Phase 2 journey: matchmakers investigate, consent clarifies, mutual match,
     .getByRole("button", { name: "Play the scripted demonstration" })
     .click();
   await expect(
-    page.getByText("PREDEFINED DEMONSTRATION · SCRIPTED · NOT AI-GENERATED"),
+    page.getByText(/SCRIPTED DEMO · predefined template responses/),
   ).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "One important question first." }),
@@ -252,7 +252,7 @@ test("live matchmaker stream renders labeled Gemini turns and verified evidence"
     )
     .check();
   await page.getByRole("button", { name: "Let our AIs talk" }).click();
-  await expect(page.getByText(/LIVE GEMINI CONVERSATION/)).toBeVisible();
+  await expect(page.getByText(/LIVE AI · real Gemini calls/)).toBeVisible();
   await expect(
     page.getByText("How does Lena like to spend weekends?"),
   ).toBeVisible();
@@ -297,7 +297,7 @@ test("AI matchmaker failure offers the labeled scripted demonstration", async ({
     .getByRole("button", { name: "Play the scripted demonstration instead" })
     .click();
   await expect(
-    page.getByText("PREDEFINED DEMONSTRATION · SCRIPTED · NOT AI-GENERATED"),
+    page.getByText(/SCRIPTED DEMO · predefined template responses/),
   ).toBeVisible();
   await expect(page.locator(".agent-turn").first()).toBeVisible();
 });
@@ -312,7 +312,7 @@ test("Phase 1 browser data migrates to the Phase 2 schema without losing progres
       name: "Jamie",
       age: 32,
       gender: "man",
-      city: "Astana",
+      city: "New York City",
       intent: "long-term",
       bio: "Fictional.",
       interests: ["hiking", "cooking", "art", "reading"],

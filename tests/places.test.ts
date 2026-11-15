@@ -47,12 +47,22 @@ const NOW = new Date("2026-11-14T15:00:00.000Z");
 const jamie = () => ({ ...sampleProfile(), approved: true });
 const lena = () => demoProfiles.find((p) => p.id === "lena")!;
 const shared = () => intersection(jamie().interests, lena().interests);
+// These tests exercise the legacy Astana event data, so both fictional
+// people keep Astana time here (the US demo uses US time zones).
+const kz = <T extends { timeZone: string }>(a: T): T => ({
+  ...a,
+  timeZone: "Asia/Almaty",
+});
 const sharing = () => {
   const p = samplePlanning();
-  return { ...p, availability: { ...p.availability!, shareWithMatches: true } };
+  return {
+    ...p,
+    availability: kz({ ...p.availability!, shareWithMatches: true }),
+  };
 };
+const lenaAvailability = () => kz(demoPlanning.lena.availability!);
 const overlapAt = (now: Date): OverlapResult =>
-  computeOverlap(sharing().availability, demoPlanning.lena.availability, {
+  computeOverlap(sharing().availability, lenaAvailability(), {
     from: now,
     days: DISCOVERY_HORIZON_DAYS,
   });
@@ -88,7 +98,9 @@ describe("Curated data integrity", () => {
         /^https:\/\/www\.openstreetmap\.org\/(node|way|relation)\/\d+$/,
       );
       expect(p.source.attribution).toMatch(/OpenStreetMap contributors/);
-      expect(p.lastVerified).toBe("2026-11-14");
+      expect(p.lastVerified).toBe(
+        p.country === "United States" ? "2026-11-15" : "2026-11-14",
+      );
     }
     for (const e of curatedEvents) {
       expect(eventSchema.safeParse(e).success).toBe(true);
@@ -471,6 +483,13 @@ describe("Proposals for real places and events", () => {
       id: "lena",
       decision: "interested",
     });
+    s = {
+      ...s,
+      planning: {
+        ...s.planning,
+        lena: { ...s.planning.lena, availability: lenaAvailability() },
+      },
+    };
     return reduceDemo(s, { type: "planning", planning: sharing() });
   }
   const zimmer = () =>

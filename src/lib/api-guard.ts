@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { AIError } from "./gemini";
 import { ZodError } from "zod";
 const buckets = new Map<string, { count: number; expires: number }>();
+const hourly = { count: 0, expires: 0 };
 export async function guardedBody(req: NextRequest, maxBytes = 48000) {
   const origin = req.headers.get("origin");
   if (origin && origin !== req.nextUrl.origin)
@@ -20,6 +21,19 @@ export async function guardedBody(req: NextRequest, maxBytes = 48000) {
     throw new AIError(
       "BUSY",
       "The demo is busy. Please try again shortly.",
+      429,
+    );
+  // Cost safeguard: a process-wide hourly cap on anonymous AI requests, on
+  // top of the per-session/IP limit below. Configurable; never unlimited.
+  if (hourly.expires < now) {
+    hourly.count = 0;
+    hourly.expires = now + 60 * 60 * 1000;
+  }
+  const cap = Number(process.env.GUEST_AI_HOURLY_LIMIT) || 600;
+  if (++hourly.count > cap)
+    throw new AIError(
+      "BUSY",
+      "The live AI demo has reached its hourly limit. Please try again later; the scripted demo is still available.",
       429,
     );
   const bucket = buckets.get(ip) ?? { count: 0, expires: now + 15 * 60 * 1000 };

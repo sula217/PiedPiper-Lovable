@@ -48,9 +48,11 @@ import {
   deterministicSummary,
   investigationBasis,
   DEFAULT_ROUNDS,
+  MAX_COACH_QUESTIONS,
   MAX_ROUNDS,
   other,
   runInvestigation,
+  screenCoachQuestion,
   scriptedBrain,
   type AgentBrain,
   type AgentEvent,
@@ -214,10 +216,34 @@ function AgentTheater({
     [consent, setConsent] = useState(false),
     [asking, setAsking] = useState<string | null>(null),
     [notice, setNotice] = useState(""),
-    [actionError, setActionError] = useState("");
+    [actionError, setActionError] = useState(""),
+    // Coach Mode: questions waiting for the next available turn.
+    [queue, setQueue] = useState<string[]>([]),
+    [coachDraft, setCoachDraft] = useState(""),
+    [coachError, setCoachError] = useState("");
+  const reduceMotion = useReducedMotion();
   const abortRef = useRef<AbortController | null>(null);
+  const endRef = useRef<HTMLDivElement | null>(null);
+  // Mirror of the Coach Mode queue, readable from stream callbacks.
+  const queueRef = useRef<string[]>([]);
+  const enqueue = (text: string) => {
+    queueRef.current = [...queueRef.current, text];
+    setQueue(queueRef.current);
+  };
+  const takeQueue = () => {
+    const q = queueRef.current;
+    queueRef.current = [];
+    setQueue([]);
+    return q;
+  };
+  const consentRef = useRef(false);
+  const statusRef = useRef<typeof status | null>(null);
   useEffect(() => () => abortRef.current?.abort(), []);
   const status = useGeminiStatus();
+  useEffect(() => {
+    consentRef.current = consent;
+    statusRef.current = status;
+  }, [consent, status]);
   const eligible = eligibility(profile, peer).eligible;
   const recommendation = eligible ? recommend(profile, [peer])[0] : undefined;
   const view: Live | null =
@@ -247,7 +273,18 @@ function AgentTheater({
   const running = view?.status === "running";
   const names = { a: profile.name, b: peer.name };
 
-  function start(source: "gemini" | "scripted", reuse = true) {
+  /** Coach Mode questions already asked in this conversation. */
+  const coachAsked = (view?.topics ?? []).filter((t) => t.coach).length;
+  const coachLeft = Math.max(
+    0,
+    MAX_COACH_QUESTIONS - coachAsked - queue.length,
+  );
+
+  function start(
+    source: "gemini" | "scripted",
+    reuse = true,
+    extra: { coach?: string[]; prior?: AgentSession } = {},
+  ) {
     abortRef.current?.abort();
     const ac = new AbortController();
     abortRef.current = ac;
@@ -255,12 +292,22 @@ function AgentTheater({
       ...buildApprovedContext(profile, "a").facts,
       ...buildApprovedContext(peer, "b").facts,
     ];
+    const prior = extra.prior
+      ? {
+          turns: extra.prior.turns,
+          topics: extra.prior.topics,
+          modelCalls: extra.prior.modelCalls,
+        }
+      : undefined;
+    // Questions queued before the first run are asked after its planned rounds.
+    const coach = extra.coach ?? (extra.prior ? [] : takeQueue());
     setNotice("");
     setLive({
       source,
       status: "running",
-      topics: [],
-      turns: [],
+      // A Coach Mode continuation keeps every verified turn on screen.
+      topics: prior?.topics ?? [],
+      turns: prior?.turns ?? [],
       summary: null,
       facts,
       error: "",
@@ -268,8 +315,8 @@ function AgentTheater({
       basis: investigationBasis(profile, peer),
     });
     const collected: { topics: Topic[]; turns: AgentTurn[] } = {
-      topics: [],
-      turns: [],
+      topics: prior?.topics ?? [],
+      turns: [...(prior?.turns ?? [])],
     };
     let completed = false;
     const handle = (e: AgentEvent) => {
@@ -278,6 +325,7 @@ function AgentTheater({
         collected.topics = e.topics;
         setLive((l) => l && { ...l, topics: e.topics });
       } else if (e.type === "turn") {
+        // Each verified turn is shown the moment it arrives.
         collected.turns.push(e.turn);
         setLive((l) => l && { ...l, turns: [...l.turns, e.turn] });
       } else if (e.type === "summary")
@@ -291,6 +339,24 @@ function AgentTheater({
     };
     const finish = (s: AgentSession) => {
       if (s.source === "gemini") invalidateGeminiStatus();
+      // Questions queued while this run was busy are asked next, continuing
+      // the same conversation (never interrupting a running model call).
+      const live =
+        s.source === "scripted" ||
+        (consentRef.current &&
+          !(statusRef.current && liveUnavailable(statusRef.current)));
+      const asked = s.topics.filter((t) => t.coach).length;
+      if (s.status !== "failed" && queueRef.current.length && live) {
+        const next = takeQueue().slice(
+          0,
+          Math.max(0, MAX_COACH_QUESTIONS - asked),
+        );
+        if (next.length)
+          setTimeout(
+            () => start(s.source, false, { coach: next, prior: s }),
+            0,
+          );
+      }
       if (s.status !== "failed")
         try {
           dispatchDemo({ type: "agent-session", id: peer.id, session: s });
@@ -321,9 +387,9 @@ function AgentTheater({
       if (collected.turns.length) {
         // The stream ended early: keep the verified turns and label the result.
         finish({
-          id: `gemini-${peer.id}-${Date.now().toString(36)}`,
+          id: `${source}-${peer.id}-${Date.now().toString(36)}`.slice(0, 60),
           peerId: peer.id,
-          source: "gemini",
+          source,
           status: "partial",
           startedAt: new Date().toISOString(),
           completedAt: new Date().toISOString(),
@@ -335,13 +401,14 @@ function AgentTheater({
           turns: collected.turns,
           facts,
           summary: deterministicSummary(profile, peer, handled),
-          modelCalls: 0,
+          modelCalls: prior?.modelCalls ?? 0,
           basis: investigationBasis(profile, peer),
           notice:
-            `${message} The completed turns are shown, with a summary assembled without AI.`.slice(
+            `${message} The completed turns are kept, with a summary assembled without AI.`.slice(
               0,
               400,
             ),
+          failedSide: null,
         });
       } else setLive((l) => l && { ...l, status: "error", error: message });
     };
@@ -349,10 +416,13 @@ function AgentTheater({
       const brain = scriptedBrain();
       const wait = (ms: number) =>
         new Promise<void>((r) => setTimeout(r, ac.signal.aborted ? 0 : ms));
+      // Scripted turns are paced so they read one by one; they are labeled
+      // "Scripted demo" throughout and never claim to be AI-generated.
+      const pace = reduceMotion ? 0.35 : 1;
       const paced: AgentBrain = {
         source: "scripted",
-        ask: async (i, o) => (await wait(900), brain.ask(i, o)),
-        answer: async (i, o) => (await wait(1100), brain.answer(i, o)),
+        ask: async (i, o) => (await wait(900 * pace), brain.ask(i, o)),
+        answer: async (i, o) => (await wait(1100 * pace), brain.answer(i, o)),
       };
       runInvestigation({
         a: profile,
@@ -361,6 +431,8 @@ function AgentTheater({
         brain: paced,
         onEvent: handle,
         signal: ac.signal,
+        coach,
+        prior,
       }).catch((e) =>
         fail(e instanceof Error ? e.message : "The demonstration failed."),
       );
@@ -377,6 +449,8 @@ function AgentTheater({
             handled,
             processingConsent: true,
             reuse,
+            coach,
+            prior: prior ?? null,
           }),
           signal: ac.signal,
         });
@@ -418,17 +492,62 @@ function AgentTheater({
     })();
   }
 
+  /** The completed conversation a Coach Mode round continues from. */
+  const continuable =
+    !running && session && session.status !== "failed" && !stale
+      ? session
+      : undefined;
+  function askCoach(text: string) {
+    setCoachError("");
+    const screen = screenCoachQuestion(text);
+    if (!screen.ok) return setCoachError(screen.reason);
+    if (coachLeft <= 0)
+      return setCoachError(
+        `You've used all ${MAX_COACH_QUESTIONS} Coach Mode questions for this introduction on the free plan.`,
+      );
+    setCoachDraft("");
+    if (running || !view) {
+      // Never interrupt a running model call: queue it for the next turn.
+      enqueue(screen.text);
+      return;
+    }
+    if (!continuable) return enqueue(screen.text);
+    const source = view.source;
+    if (source === "gemini" && (!consent || liveUnavailable(status)))
+      return setCoachError(
+        "Live AI isn't available for this question (consent is off or Gemini is unavailable). Tick the consent box below, or replay it as a scripted demo.",
+      );
+    start(source, false, { coach: [screen.text], prior: continuable });
+  }
+
   const nextTurn = (() => {
     if (!view || !running) return null;
-    const i = view.turns.length;
     if (!view.topics.length) return "Planning the most useful questions…";
-    if (i >= view.topics.length * 2)
+    const answered = new Set(
+      view.turns.filter((t) => t.role === "answer").map((t) => t.topicId),
+    );
+    const topic = view.topics.find((t) => !answered.has(t.id));
+    if (!topic)
       return "Assembling the summary from verified facts (no extra AI call)…";
-    const topic = view.topics[Math.floor(i / 2)];
-    return i % 2 === 0
-      ? `Piper for ${names[topic.asker]} is preparing a question about ${topic.label.toLowerCase()}…`
-      : `Piper for ${names[other(topic.asker)]} is checking ${names[other(topic.asker)]}’s approved profile…`;
+    const asked = view.turns.some(
+      (t) => t.role === "question" && t.topicId === topic.id,
+    );
+    const side = asked ? other(topic.asker) : topic.asker;
+    const agent = `Agent ${side.toUpperCase()} (Piper for ${names[side]})`;
+    const verb = view.source === "gemini" ? "is thinking" : "is typing";
+    return asked
+      ? `${agent} ${verb} — checking ${names[side]}’s approved profile…`
+      : topic.coach
+        ? `${agent} ${verb} — asking your Coach Mode question…`
+        : `${agent} ${verb} — a question about ${topic.label.toLowerCase()}…`;
   })();
+  // Keep the newest message (or the thinking indicator) in view.
+  useEffect(() => {
+    endRef.current?.scrollIntoView({
+      block: "nearest",
+      behavior: reduceMotion ? "auto" : "smooth",
+    });
+  }, [view?.turns.length, nextTurn, reduceMotion]);
 
   const answeredRounds = view
     ? view.turns.filter((t) => t.role === "answer").length
@@ -449,12 +568,12 @@ function AgentTheater({
     </span>
   ) : view.source === "gemini" ? (
     <span className="status-chip is-live">
-      <Sparkles size={12} /> Live Gemini · {answeredRounds} round
+      <Sparkles size={12} /> Live AI · {answeredRounds} round
       {answeredRounds === 1 ? "" : "s"}
     </span>
   ) : (
     <span className="status-chip is-scripted">
-      Scripted · {answeredRounds} round{answeredRounds === 1 ? "" : "s"}
+      Scripted demo · {answeredRounds} round{answeredRounds === 1 ? "" : "s"}
     </span>
   );
 
@@ -558,13 +677,14 @@ function AgentTheater({
                 {view.source === "gemini" ? (
                   <>
                     <Sparkles size={14} />
-                    LIVE GEMINI CONVERSATION · two separate agent contexts ·
-                    facts verified before display
+                    LIVE AI · real Gemini calls, one per message · two separate
+                    agent contexts · facts verified before display
                   </>
                 ) : (
                   <>
                     <PiperMark />
-                    PREDEFINED DEMONSTRATION · SCRIPTED · NOT AI-GENERATED
+                    SCRIPTED DEMO · predefined template responses · not
+                    AI-generated
                   </>
                 )}
               </div>
@@ -591,6 +711,7 @@ function AgentTheater({
                     {nextTurn}
                   </div>
                 )}
+                <div ref={endRef} aria-hidden="true" />
               </div>
               {view.error && (
                 <div className="notice error-notice" role="alert">
@@ -623,6 +744,18 @@ function AgentTheater({
                   {view.notice}
                 </div>
               )}
+              <CoachPanel
+                peerName={peer.name}
+                draft={coachDraft}
+                onDraft={setCoachDraft}
+                onAsk={askCoach}
+                error={coachError}
+                queue={queue}
+                left={coachLeft}
+                running={running}
+                askedTopics={view.topics.filter((t) => t.coach)}
+                turns={view.turns}
+              />
               {!running && (
                 <div className="agent-rerun">
                   <span>Run it again</span>
@@ -656,12 +789,12 @@ function AgentTheater({
           )}
         </div>
 
-        <aside className="ag-summary" aria-label="Investigation summary">
+        <aside className="ag-summary" aria-label="Your matchmaker’s take">
           <div className="ag-panel-head">
             <span className="ag-panel-icon sage">
               <Layers size={20} />
             </span>
-            <h2>Investigation summary</h2>
+            <h2>Your matchmaker’s take</h2>
           </div>
           {view?.summary && !running ? (
             <SummaryPanel
@@ -918,17 +1051,22 @@ function TurnBubble({
       </span>
       <div className="ag-turn-body">
         <span className="agent-turn-meta">
-          <strong>{names[turn.side]}’s AI</strong>
+          <strong>
+            Agent {turn.side.toUpperCase()} · {names[turn.side]}’s Piper
+          </strong>
           <span>
             {turn.role === "question" ? "asks" : "answers"} · round {turn.round}
             {topic ? ` · ${topic.label.toLowerCase()}` : ""}
           </span>
+          {topic?.coach && turn.role === "question" && (
+            <span className="coach-tag">Your Coach Mode question</span>
+          )}
           <em>
             {source === "scripted"
-              ? "SCRIPTED"
+              ? "SCRIPTED DEMO"
               : turn.answeredBy === "rule"
                 ? "RULE · NO AI CALL"
-                : "GEMINI"}
+                : "LIVE AI · GEMINI"}
           </em>
         </span>
         <div className="ag-bubble">
@@ -1102,7 +1240,8 @@ function SummaryPanel({
                     className="text-link"
                     href={`/connections?with=${peer.id}&kind=${s.category}#discover`}
                   >
-                    See real options in Astana <ArrowUpRight size={12} />
+                    See real options in {peer.city || "your city"}{" "}
+                    <ArrowUpRight size={12} />
                   </Link>
                 ) : (
                   <small>
@@ -1131,11 +1270,24 @@ function SummaryPanel({
             : "Worth an introduction."}
         </h3>
         <p>{summary.explanation.text}</p>
+        <p className="next-step">
+          <strong>Suggested next step:</strong>{" "}
+          {isMatched
+            ? `You're connected. Break the ice with ${peer.name} and compare availability for a first date.`
+            : summary.verdict === "clarify-first"
+              ? `Ask the open question above with consent before deciding about ${peer.name}.`
+              : `If this sounds good, say you're interested. ${peer.name} only sees it if the interest is mutual.`}
+        </p>
         <small>
-          This is an explanation, not a prediction. Hard requirements are
-          checked by the matching engine, never by AI.
+          This is advisory, not a prediction: no chemistry scores or success
+          odds. Hard requirements are checked by the matching engine, never by
+          AI. You decide.
         </small>
       </div>
+      <p className="fine-print private-take">
+        <ShieldCheck size={13} /> Private to you. {peer.name} never sees your
+        matchmaker’s take.
+      </p>
     </div>
   );
 }
@@ -1267,5 +1419,137 @@ function NextSteps({
         ) : null}
       </div>
     </div>
+  );
+}
+
+const COACH_SUGGESTIONS = [
+  "Ask about their ideal weekend.",
+  "Find out whether they enjoy traveling.",
+  "Explore how they approach money and dates.",
+  "Do they prefer quiet evenings or social plans?",
+];
+/**
+ * Coach Mode — "Ask your matchmaker". Suggestions are screened before they
+ * reach a model, queued while a call is running (never interrupting it), and
+ * asked by your own matchmaker in the next available round.
+ */
+function CoachPanel({
+  peerName,
+  draft,
+  onDraft,
+  onAsk,
+  error,
+  queue,
+  left,
+  running,
+  askedTopics,
+  turns,
+}: {
+  peerName: string;
+  draft: string;
+  onDraft: (s: string) => void;
+  onAsk: (text: string) => void;
+  error: string;
+  queue: string[];
+  left: number;
+  running: boolean;
+  askedTopics: Topic[];
+  turns: AgentTurn[];
+}) {
+  const answerFor = (t: Topic) =>
+    turns.find((x) => x.role === "answer" && x.topicId === t.id);
+  return (
+    <section className="coach-panel" aria-labelledby="coach-title">
+      <div className="coach-head">
+        <span className="ag-panel-icon">
+          <MessageCircleQuestion size={18} />
+        </span>
+        <div>
+          <h3 id="coach-title">Ask your matchmaker</h3>
+          <p>
+            Suggest something for your Piper to ask {peerName}’s matchmaker.
+            It’s asked in the next available turn and answered only from what{" "}
+            {peerName} approved for sharing.
+          </p>
+        </div>
+        <span className="coach-left" aria-live="polite">
+          {left} of {MAX_COACH_QUESTIONS} left
+        </span>
+      </div>
+      <form
+        className="coach-form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          onAsk(draft);
+        }}
+      >
+        <label className="sr-only" htmlFor="coach-input">
+          Your question for the matchmaker
+        </label>
+        <input
+          id="coach-input"
+          value={draft}
+          maxLength={200}
+          placeholder={`e.g. Ask about ${peerName}’s ideal weekend`}
+          onChange={(e) => onDraft(e.target.value)}
+          disabled={left <= 0}
+        />
+        <Button type="submit" size="sm" disabled={left <= 0 || !draft.trim()}>
+          {running ? "Queue it" : "Ask"}
+        </Button>
+      </form>
+      <div
+        className="coach-chips"
+        role="group"
+        aria-label="Suggested questions"
+      >
+        {COACH_SUGGESTIONS.map((s) => (
+          <button
+            key={s}
+            type="button"
+            disabled={left <= 0}
+            onClick={() => onAsk(s)}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+      {error && (
+        <p className="error-text" role="alert">
+          {error}
+        </p>
+      )}
+      {(queue.length > 0 || askedTopics.length > 0) && (
+        <ul className="coach-list">
+          {askedTopics.map((t) => {
+            const a = answerFor(t);
+            return (
+              <li key={t.id}>
+                <span>“{t.coach}”</span>
+                <small className={a?.status === "unknown" ? "unknown" : ""}>
+                  {!a
+                    ? "Asking now…"
+                    : a.status === "confirmed"
+                      ? "Answered from approved facts"
+                      : "Unknown · not shared yet"}
+                </small>
+              </li>
+            );
+          })}
+          {queue.map((q, i) => (
+            <li key={`q-${i}`}>
+              <span>“{q}”</span>
+              <small>Queued for the next turn</small>
+            </li>
+          ))}
+        </ul>
+      )}
+      <small className="fine-print">
+        Coach Mode can’t reveal private details, change anyone’s profile, or
+        make someone answer. Sensitive topics (income, health, beliefs, contact
+        details) are never asked. Plus will include more Coach Mode questions
+        (coming soon).
+      </small>
+    </section>
   );
 }

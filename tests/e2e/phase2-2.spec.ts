@@ -1,8 +1,8 @@
 import { test, expect, type Page } from "@playwright/test";
 import { createJamie, mockStatus } from "./helpers";
 
-/** Saturday 14 Nov 2026, 20:00 in Astana: the day the curated data was verified. */
-const VERIFIED_DAY = new Date("2026-11-14T15:00:00.000Z");
+/** Monday 16 Nov 2026, 10:00 in New York, the day after the US places were verified. */
+const VERIFIED_DAY = new Date("2026-11-16T15:00:00.000Z");
 
 async function matchWithLena(page: Page) {
   await page.goto("/agents?with=lena");
@@ -42,7 +42,7 @@ async function shareAvailability(page: Page) {
     .click();
 }
 
-test("Discover your first date: real Astana events, verified sources, simulated approval", async ({
+test("Discover your first date: real US places, verified sources, simulated approval", async ({
   page,
 }, testInfo) => {
   test.setTimeout(120000);
@@ -64,8 +64,15 @@ test("Discover your first date: real Astana events, verified sources, simulated 
     "Culture & Activities",
   ])
     await expect(discover.getByRole("button", { name })).toBeVisible();
-  await expect(discover.getByLabel("City")).toHaveValue("astana");
-  // Before availability is shared, event times aren't matched — and it says so.
+  // Jamie lives in New York City, so NYC is preselected; only US cities exist.
+  await expect(discover.getByRole("combobox", { name: /^City/ })).toHaveValue(
+    "new-york",
+  );
+  await expect(
+    discover
+      .getByRole("combobox", { name: /^City/ })
+      .locator("option[value=astana]"),
+  ).toHaveCount(0);
   await expect(
     discover.getByText(/Availability isn’t compared yet/),
   ).toBeVisible();
@@ -75,38 +82,23 @@ test("Discover your first date: real Astana events, verified sources, simulated 
   await expect(
     discover.getByRole("button", { name: "Concerts & Events" }),
   ).toHaveAttribute("aria-pressed", "true");
-  const card = discover
-    .locator("article")
-    .filter({
-      has: page.getByRole("heading", { name: /The Music of Hans Zimmer/ }),
-    });
+  const card = discover.locator("article").first();
   await expect(card).toBeVisible();
-  await expect(card.getByText(/QAZAQCONCERT/)).toBeVisible();
-  await expect(card.getByText(/inside a time you’re both free/)).toBeVisible();
-  await expect(card.getByText(/From ₸9,630/)).toBeVisible();
   await expect(card.getByText(/You both enjoy music/)).toBeVisible();
+  await expect(card.getByText("Price not listed")).toBeVisible();
   await expect(
-    card.getByRole("link", { name: "Ticketon (manually verified)" }),
-  ).toBeVisible();
-  await expect(
-    card.getByText(/ticket availability not verified/),
-  ).toBeVisible();
-  await expect(
-    card.getByRole("link", { name: "Ticketon page" }),
-  ).toHaveAttribute("href", /^https:\/\/ticketon\.kz\/en\/concerts\/event\//);
+    card.getByRole("link", { name: "OpenStreetMap" }),
+  ).toHaveAttribute("href", /^https:\/\/www\.openstreetmap\.org\//);
   await expect(
     card.getByRole("link", { name: "Open location" }),
   ).toHaveAttribute("href", /^https:\/\/www\.openstreetmap\.org\//);
-  // A Tuesday open mic doesn't fit Jamie's availability, so it isn't offered.
+  // No invented US shows: venues only, and the page says why.
   await expect(
-    discover.getByRole("heading", { name: "Stand up: open mic" }),
-  ).toHaveCount(0);
+    discover.getByText(/No dated US events are listed/),
+  ).toBeVisible();
   await page.screenshot({
     path: `artifacts/${testInfo.project.name}-discover.png`,
     fullPage: true,
-  });
-  await discover.screenshot({
-    path: `artifacts/${testInfo.project.name}-discover-section.png`,
   });
 
   await card.getByRole("button", { name: "Suggest this date" }).click();
@@ -117,36 +109,20 @@ test("Discover your first date: real Astana events, verified sources, simulated 
   await expect(
     proposal.getByText("Proposed · not confirmed until both accept"),
   ).toBeVisible();
-  await expect(proposal.getByText(/scheduled event time/)).toBeVisible();
-  await expect(
-    proposal.getByRole("link", { name: "Ticketon page" }),
-  ).toHaveAttribute("href", /^https:\/\/ticketon\.kz\//);
   await page.getByRole("button", { name: "Lena accepts" }).click();
   await expect(
     proposal.getByText("Confirmed by both · counterpart simulated"),
   ).toBeVisible();
-  await expect(
-    proposal.getByText(/Get tickets yourselves on the official Ticketon page/),
-  ).toBeVisible();
 
-  // Almaty works too, with its own verified listings.
-  await discover.getByLabel("City").selectOption("almaty");
-  await expect(
-    discover.getByRole("heading", { name: "«Andrea Bocelli» programme" }),
-  ).toBeVisible();
-  await expect(
-    discover.getByText(/not by Andrea Bocelli himself/),
-  ).toBeVisible();
-  // Parks: free public spaces, OpenStreetMap-sourced.
+  // Other US cities have their own OpenStreetMap places.
+  await discover
+    .getByRole("combobox", { name: /^City/ })
+    .selectOption("chicago");
   await discover.getByRole("button", { name: "Concerts & Events" }).click();
   await discover.getByRole("button", { name: "Parks & Outdoors" }).click();
   await expect(
     discover.getByText("Free to enter (public park)").first(),
   ).toBeVisible();
-  await expect(
-    discover.getByRole("link", { name: "OpenStreetMap" }).first(),
-  ).toBeVisible();
-  // With every category, there are more than three: explore alternatives.
   await discover.getByRole("button", { name: "Parks & Outdoors" }).click();
   const first = await discover.locator("article h3").first().textContent();
   await discover.getByRole("button", { name: /Explore alternatives/ }).click();
@@ -174,7 +150,7 @@ test("Discover your first date: real Astana events, verified sources, simulated 
   expect(errors).toEqual([]);
 });
 
-test("when the event list has passed, an honest empty state replaces invented events", async ({
+test("an old curated list is flagged as stale instead of being presented as current", async ({
   page,
 }) => {
   await page.clock.setFixedTime(new Date("2027-03-01T08:00:00.000Z"));
@@ -182,20 +158,9 @@ test("when the event list has passed, an honest empty state replaces invented ev
   await createJamie(page);
   await matchWithLena(page);
   const discover = page.locator("#discover");
-  await discover.getByRole("button", { name: "Concerts & Events" }).click();
-  await expect(
-    discover.getByRole("heading", {
-      name: "No verified recommendations match these filters.",
-    }),
-  ).toBeVisible();
-  await expect(
-    discover.getByText(/curated events have already passed/),
-  ).toBeVisible();
   await expect(
     discover.getByText(/This curated list is \d+ days old/),
   ).toBeVisible();
-  // Real places still work without dates.
-  await discover.getByRole("button", { name: "Concerts & Events" }).click();
   await discover.getByRole("button", { name: "Food & Coffee" }).click();
   await expect(discover.locator("article").first()).toBeVisible();
 });
@@ -221,7 +186,7 @@ test("Gemini unavailable: live mode is clearly labeled and the scripted demo sti
     .getByRole("button", { name: "Play the scripted demonstration" })
     .click();
   await expect(
-    page.getByText("PREDEFINED DEMONSTRATION · SCRIPTED · NOT AI-GENERATED"),
+    page.getByText(/SCRIPTED DEMO · predefined template responses/),
   ).toBeVisible();
   await expect(page.locator(".agent-turn").first()).toBeVisible();
 });
@@ -301,7 +266,7 @@ test("live stream marks rule-based answers and keeps completed rounds", async ({
   await expect(
     page.getByText(/answered by rule without asking the AI to guess/),
   ).toBeVisible();
-  await expect(page.getByText(/completed turns are shown/)).toBeVisible();
+  await expect(page.getByText(/completed turns are kept/)).toBeVisible();
 });
 
 test("developer diagnostics show non-sensitive Gemini status only", async ({

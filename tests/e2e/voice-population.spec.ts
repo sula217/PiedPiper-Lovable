@@ -104,11 +104,11 @@ test("voice review, Gemini follow-up, approval, 180-profile matching, scripted a
       window as unknown as {
         voiceTest: { emit: (t: string, f: boolean) => void };
       }
-    ).voiceTest.emit("Fictional Jamie is 23 in Astana.", false);
+    ).voiceTest.emit("Fictional Jamie is 23 in New York City.", false);
   });
   await expect(
     page.getByText(
-      "Live transcript (not final): Fictional Jamie is 23 in Astana.",
+      "Live transcript (not final): Fictional Jamie is 23 in New York City.",
     ),
   ).toBeVisible();
   expect(requests).toBe(0);
@@ -117,7 +117,7 @@ test("voice review, Gemini follow-up, approval, 180-profile matching, scripted a
       window as unknown as {
         voiceTest: { emit: (t: string, f: boolean) => void };
       }
-    ).voiceTest.emit("Fictional Jamie is 23 in Astana.", true);
+    ).voiceTest.emit("Fictional Jamie is 23 in New York City.", true);
   });
   await page.getByRole("button", { name: "Stop recording" }).click();
   const box = page.getByRole("textbox", {
@@ -125,7 +125,7 @@ test("voice review, Gemini follow-up, approval, 180-profile matching, scripted a
     exact: true,
   });
   await box.fill(
-    "I'm fictional Jamie, 32, a man in Astana. I want a long-term relationship with women and nonbinary people. I enjoy hiking, music, coffee, cooking and art. Kindness, curiosity and family matter to me.",
+    "I'm fictional Jamie, 32, a man in New York City. I want a long-term relationship with women and nonbinary people. I enjoy hiking, music, coffee, cooking and art. Kindness, curiosity and family matter to me.",
   );
   await page.getByRole("button", { name: "Send message to Piper" }).click();
   await expect(

@@ -12,7 +12,7 @@ test("complete predefined guest lifecycle, consent, messaging, persistence and d
     path: `artifacts/${testInfo.project.name}-landing.png`,
     fullPage: false,
   });
-  await page.getByRole("link", { name: "Try interactive demo" }).click();
+  await page.getByRole("link", { name: "Watch the scripted demo" }).click();
   await expect(
     page.getByRole("button", { name: "Start talking to Piper" }),
   ).toBeDisabled();

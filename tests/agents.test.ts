@@ -278,6 +278,7 @@ describe("Grounding verification", () => {
     dimension: "children",
     hard: true,
     label: "Family plans",
+    coach: null,
     questionKey: "guest:lena:children",
   };
   const interests: Topic = {

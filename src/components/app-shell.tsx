@@ -128,6 +128,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <ShieldCheck size={17} />
             Privacy & safety
           </Link>
+          <Link href="/pricing">
+            <ArrowUpRight size={17} />
+            Free & Plus pricing
+          </Link>
           <div className="sidebar-user">
             <div className="avatar-initial">
               {state.profile?.name.slice(0, 1) || "J"}

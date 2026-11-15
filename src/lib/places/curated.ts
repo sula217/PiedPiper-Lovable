@@ -1,7 +1,17 @@
-import type { DateEvent, Place } from "./types";
+import { placeSchema, type DateEvent, type Place } from "./types";
+import usPlacesJson from "./us-places.json" with { type: "json" };
 
 /**
- * A small, manually verified dataset for the Kazakhstan hackathon demo.
+ * US PLACES (New York City, San Francisco, Chicago, Austin) are real
+ * OpenStreetMap records retrieved on 2026-11-15 through a few Overpass API
+ * queries and built by scripts/build-us-places.mjs. Names, street addresses,
+ * coordinates and website links are exactly the OSM tags; nothing else is
+ * stored. Public parks are "free to enter"; every other price is "not listed".
+ * There are no curated US events: no reliable, permitted US event source is
+ * configured, so concerts are suggested as venues, never as dated events.
+ *
+ * LEGACY (Kazakhstan) data from the earlier demo is kept below unchanged.
+ * A small, manually verified dataset for Astana and Almaty.
  *
  * PLACES come from OpenStreetMap (retrieved 2026-11-14 through the Nominatim
  * search API, a handful of requests within its usage policy). Names,
@@ -19,6 +29,8 @@ import type { DateEvent, Place } from "./types";
  * taken from the current listing. Past events are filtered out at runtime.
  */
 export const CURATED_VERIFIED_AT = "2026-11-14";
+export const US_PLACES_VERIFIED_AT = "2026-11-15";
+export const usPlaces: Place[] = usPlacesJson.map((p) => placeSchema.parse(p));
 const OSM = (type: "node" | "way" | "relation", id: number) => ({
   name: "OpenStreetMap",
   url: `https://www.openstreetmap.org/${type}/${id}`,
@@ -50,7 +62,7 @@ const place = (p: PlaceSeed): Place => {
   };
 };
 
-export const curatedPlaces: Place[] = [
+const legacyPlaces: Place[] = [
   // ---------- Astana: cafés ----------
   place({
     id: "osm-node-9047331882",
@@ -476,6 +488,8 @@ export const curatedPlaces: Place[] = [
     tags: ["music", "museum", "history", "culture"],
   }),
 ];
+
+export const curatedPlaces: Place[] = [...usPlaces, ...legacyPlaces];
 
 type EventSeed = Omit<
   DateEvent,

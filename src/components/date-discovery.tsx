@@ -27,7 +27,7 @@ import {
 } from "./ai-status";
 import { dispatchDemo, GUEST_ID, type DemoState } from "@/lib/demo-store";
 import { intersection } from "@/lib/matching";
-import type { Profile } from "@/lib/profile";
+import { sharedMoney, type Profile } from "@/lib/profile";
 import { budgetLabels, budgetLevels, computeOverlap } from "@/lib/planning";
 import {
   activityKinds,
@@ -49,8 +49,29 @@ import {
   curatedEvents,
   curatedPlaces,
   CURATED_VERIFIED_AT,
+  US_PLACES_VERIFIED_AT,
 } from "@/lib/places/curated";
-import { cities, cityIds, type CityId, type Venue } from "@/lib/places/types";
+import {
+  cities,
+  cityIdFor,
+  DEFAULT_CITY,
+  formatMoney,
+  usCityIds,
+  type CityId,
+  type Venue,
+} from "@/lib/places/types";
+
+/** The supported US city for a profile, defaulting to New York City. */
+function homeCity(city: string): CityId {
+  const id = cityIdFor(city);
+  return id && (usCityIds as readonly string[]).includes(id)
+    ? id
+    : DEFAULT_CITY;
+}
+const nextCity = (c: CityId): CityId => {
+  const i = (usCityIds as readonly string[]).indexOf(c);
+  return usCityIds[(i + 1) % usCityIds.length];
+};
 
 const kindIcon: Record<ActivityKind, typeof Coffee> = {
   "food-coffee": Coffee,
@@ -120,9 +141,18 @@ export function DateDiscovery({
       theirs?.datePreferences.budget ?? null,
     ]
       .filter((b): b is BudgetLevel => !!b)
-      .sort((x, y) => order(x) - order(y))[0] ?? null;
+      .sort((x, y) => order(x) - order(y))[0] ??
+    // Fallback: both people shared that they prefer budget-friendly first dates.
+    (sharedMoney(profile).some(
+      (m) => m.key === "firstDates" && m.value === "budget-friendly",
+    ) &&
+    sharedMoney(peer).some(
+      (m) => m.key === "firstDates" && m.value === "budget-friendly",
+    )
+      ? "low"
+      : null);
   const [filters, setFilters] = useState<DiscoveryFilters>(() => ({
-    ...defaultFilters("astana"),
+    ...defaultFilters(homeCity(profile.city)),
     budget: stricter,
     kinds: activityKinds.filter((k) => k === initialKind),
   }));
@@ -157,7 +187,9 @@ export function DateDiscovery({
   const pages = Math.max(1, Math.ceil(pool.length / 3));
   const shown =
     page === 0 ? result.recommendations : pool.slice(page * 3, page * 3 + 3);
-  const stale = daysSince(CURATED_VERIFIED_AT, from) > 14;
+  const isUs = cities[filters.city].countryCode === "US";
+  const verifiedAt = isUs ? US_PLACES_VERIFIED_AT : CURATED_VERIFIED_AT;
+  const stale = daysSince(verifiedAt, from) > 30;
   const set = (patch: Partial<DiscoveryFilters>) => {
     setFilters((f) => ({ ...f, ...patch }));
     setPage(0);
@@ -262,7 +294,9 @@ export function DateDiscovery({
         <span className="eyebrow">
           <MapPin size={13} /> REAL PLACES & EVENTS ·{" "}
           {cities[filters.city].name.toUpperCase()},{" "}
-          {cities[filters.city].country.toUpperCase()}
+          {(
+            cities[filters.city].state ?? cities[filters.city].country
+          ).toUpperCase()}
         </span>
         <h2 id="discover-title">
           Discover your <em>first date.</em>
@@ -297,9 +331,9 @@ export function DateDiscovery({
             value={filters.city}
             onChange={(e) => set({ city: e.target.value as CityId })}
           >
-            {cityIds.map((c) => (
+            {usCityIds.map((c) => (
               <option key={c} value={c}>
-                {cities[c].name}, {cities[c].country}
+                {cities[c].name}, {cities[c].state}
               </option>
             ))}
           </select>
@@ -317,7 +351,7 @@ export function DateDiscovery({
               <option key={b} value={b}>
                 {budgetLabels[b]}
                 {b !== "flexible" &&
-                  ` (≤ ₸${cities[filters.city].budgetMax[b].toLocaleString("en-US")})`}
+                  ` (≤ ${formatMoney(cities[filters.city].budgetMax[b], cities[filters.city].currency)} per person)`}
               </option>
             ))}
           </select>
@@ -405,11 +439,9 @@ export function DateDiscovery({
             <Button
               size="sm"
               variant="ghost"
-              onClick={() =>
-                set({ city: filters.city === "astana" ? "almaty" : "astana" })
-              }
+              onClick={() => set({ city: nextCity(filters.city) })}
             >
-              Try {filters.city === "astana" ? "Almaty" : "Astana"}
+              Try {cities[nextCity(filters.city)].name}
             </Button>
           </div>
         </div>
@@ -467,15 +499,16 @@ export function DateDiscovery({
       </div>
       <p className="fine-print data-sources">
         <Database size={13} /> Places: © OpenStreetMap contributors (ODbL),
-        retrieved {CURATED_VERIFIED_AT}. Events: Ticketon.kz pages checked by
-        hand on {CURATED_VERIFIED_AT}; there is no public Ticketon API, so
-        nothing is scraped. Past events are hidden automatically. Ticket
-        availability and opening hours are not verified.
+        retrieved {verifiedAt}. Names, addresses and websites are the OSM
+        records as published; opening hours, prices and ticket availability are
+        not verified, so check the official website before you go.{" "}
+        {isUs
+          ? "No dated US events are listed: there is no permitted live event source configured, so concert venues are suggested instead of specific shows."
+          : `Events: Ticketon.kz pages checked by hand on ${CURATED_VERIFIED_AT}. Past events are hidden automatically.`}
         {stale && (
           <strong className="stale-data">
             {" "}
-            This curated list is {daysSince(CURATED_VERIFIED_AT, from)} days old
-            — check Ticketon for current listings.
+            This curated list is {daysSince(verifiedAt, from)} days old.
           </strong>
         )}
       </p>

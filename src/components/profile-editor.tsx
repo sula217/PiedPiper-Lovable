@@ -12,8 +12,13 @@ import {
   dimensionKeys,
   dimensionLabels,
   dimensionOptions,
+  moneyKeys,
+  moneyLabel,
+  moneyLabels,
+  moneyOptions,
   title,
 } from "@/lib/profile";
+import { usCityNames } from "@/lib/places/types";
 
 export function ProfileEditor({
   profile,
@@ -71,6 +76,12 @@ export function ProfileEditor({
         },
         approved: form.get("approved") === "on",
         readyToConnect: form.get("readyToConnect") === "on",
+        money: {
+          ...Object.fromEntries(
+            moneyKeys.map((k) => [k, str(`money-${k}`) || null]),
+          ),
+          shareWithMatches: form.get("money-share") === "on",
+        },
       });
       const missing = requiredMissing(next);
       if (missing.length)
@@ -140,10 +151,19 @@ export function ProfileEditor({
             <input
               name="city"
               defaultValue={profile.city}
-              placeholder="e.g. Astana"
+              placeholder="e.g. New York City"
+              list="supported-cities"
               maxLength={100}
               required
             />
+            <datalist id="supported-cities">
+              {usCityNames.map((c) => (
+                <option key={c} value={c} />
+              ))}
+            </datalist>
+            <small>
+              Demo cities: New York City, San Francisco, Chicago, Austin.
+            </small>
           </label>
           <label className="wide">
             Relationship intention
@@ -202,6 +222,43 @@ export function ProfileEditor({
             </label>
           ))}
         </div>
+      </fieldset>
+      <fieldset id="money-lifestyle">
+        <legend>
+          Money & Lifestyle <small>Optional</small>
+        </legend>
+        <p className="field-help">
+          Broad styles only, to find people who approach dates and spending the
+          way you do. Piper never asks for your salary, savings, debt, credit or
+          bank details, and never guesses them. Unanswered is never treated as a
+          mismatch.
+        </p>
+        <div className="form-grid">
+          {moneyKeys.map((k) => (
+            <label key={k}>
+              {moneyLabels[k]}
+              <select
+                name={`money-${k}`}
+                defaultValue={profile.money?.[k] ?? ""}
+              >
+                <option value="">Prefer not to say</option>
+                {moneyOptions[k].map((v) => (
+                  <option key={v} value={v}>
+                    {moneyLabel(k, v)}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ))}
+        </div>
+        <label className="check-label">
+          <input
+            type="checkbox"
+            name="money-share"
+            defaultChecked={profile.money?.shareWithMatches ?? false}
+          />
+          Let my matchmaker use and share these answers with introductions
+        </label>
       </fieldset>
       <fieldset id="preferences">
         <legend>Your kind of connection</legend>

@@ -58,7 +58,7 @@ describe("Reciprocal eligibility", () => {
   });
   it("normalizes city spacing and case", () => {
     const b = candidate();
-    b.city = " astana ";
+    b.city = " new YORK city ";
     expect(eligibility(self(), b).eligible).toBe(true);
   });
   it("checks relationship intentions from both sides", () => {

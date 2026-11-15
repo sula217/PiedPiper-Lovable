@@ -16,7 +16,9 @@ test("landing: hero, honest demo framing and both entry points work", async ({
   ).toBeVisible();
   await expect(page.getByText("Your AI finds the people.")).toBeVisible();
   // No fabricated community claims: the proof line names the fictional population.
-  await expect(page.getByText(/180 fictional demo profiles/)).toBeVisible();
+  await expect(
+    page.getByText(/180 fictional adults in New York City/),
+  ).toBeVisible();
   await expect(page.getByText(/growing community/i)).toHaveCount(0);
   await expect(
     page.getByText("Fictional demo profiles · illustrated"),
@@ -29,10 +31,13 @@ test("landing: hero, honest demo framing and both entry points work", async ({
     if (page.viewportSize()!.width > 760)
       await expect(page.getByRole("link", { name, exact: true })).toBeVisible();
   expect(await fitsViewport(page)).toBe(true);
-  await page.getByRole("link", { name: "Talk to Piper" }).first().click();
+  await page
+    .getByRole("link", { name: "Try the live AI demo" })
+    .first()
+    .click();
   await expect(page).toHaveURL("/onboarding");
   await page.goto("/");
-  await page.getByRole("link", { name: "Try interactive demo" }).click();
+  await page.getByRole("link", { name: "Watch the scripted demo" }).click();
   await expect(page).toHaveURL("/onboarding?demo=1");
 });
 
@@ -81,7 +86,7 @@ test("onboarding: voice/typing switch, draft statuses and approval gate", async 
     name: "Message to Piper",
     exact: true,
   });
-  await box.fill("Fictional Jamie, 32, Astana, long-term.");
+  await box.fill("Fictional Jamie, 32, New York City, long-term.");
   await page.getByRole("button", { name: "Send message to Piper" }).click();
   await expect(
     page.getByText("Thanks! Please review your draft."),
@@ -170,9 +175,9 @@ test("agents: two people, distinct agents, follow-up CTA and back navigation", a
   await expect(
     page.getByRole("heading", { name: "One important question first." }),
   ).toBeVisible({ timeout: 20000 });
-  await expect(page.getByText(/Scripted · 2 rounds/)).toBeVisible();
+  await expect(page.getByText(/Scripted demo · 2 rounds/)).toBeVisible();
   const summary = page.getByRole("complementary", {
-    name: "Investigation summary",
+    name: "Your matchmaker’s take",
   });
   for (const h of [
     "Confirmed common ground",

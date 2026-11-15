@@ -5,7 +5,36 @@ import {
   type Profile,
   requiredMissing,
   attributeLabel,
+  moneyLabel,
+  sharedMoney,
 } from "./profile";
+import { cityIdFor } from "./places/types";
+
+/**
+ * Confirmed Money & Lifestyle alignment, from answers BOTH people chose to
+ * share. Advisory only: it adds explanations, never a score or a filter, and
+ * an unanswered question is never treated as a difference.
+ */
+export function moneyComparison(a: Profile, b: Profile) {
+  const theirs = new Map(sharedMoney(b).map((m) => [m.key, m.value]));
+  const aligned: string[] = [],
+    different: string[] = [];
+  for (const { key, value } of sharedMoney(a)) {
+    const other = theirs.get(key);
+    if (!other) continue;
+    if (other === value)
+      aligned.push(
+        key === "firstDates" && value === "budget-friendly"
+          ? "You both prefer affordable first dates."
+          : `You both: ${moneyLabel(key, value).toLowerCase()}.`,
+      );
+    else
+      different.push(
+        `${a.name}: ${moneyLabel(key, value).toLowerCase()}; ${b.name}: ${moneyLabel(key, other).toLowerCase()}.`,
+      );
+  }
+  return { aligned, different };
+}
 
 export const DEFAULT_WEIGHTS = {
   goals: 30,
@@ -16,12 +45,8 @@ export const DEFAULT_WEIGHTS = {
 };
 export type Weights = typeof DEFAULT_WEIGHTS;
 const normalize = (s: string) => s.trim().toLocaleLowerCase("en-US");
-export const normalizeCity = (s: string) => {
-  const city = normalize(s);
-  return ["new york", "new york city", "nyc"].includes(city)
-    ? "new york city"
-    : city;
-};
+/** Supported cities compare by id, so "NYC", "Brooklyn" and "New York, NY" match. */
+export const normalizeCity = (s: string) => cityIdFor(s) ?? normalize(s);
 export const intersection = (a: string[], b: string[]) =>
   [...new Set(a.map(normalize))].filter((x) => b.map(normalize).includes(x));
 const overlap = (a: string[], b: string[]) =>
@@ -162,6 +187,9 @@ export function recommend(
         evidence.push(`Shared interests: ${commonInterests.join(", ")}.`);
       if (commonValues.length)
         evidence.push(`Shared values: ${commonValues.join(", ")}.`);
+      const money = moneyComparison(a, b);
+      evidence.push(...money.aligned.slice(0, 2));
+      differences.push(...money.different.slice(0, 2));
       let matches = 0,
         total = 0;
       for (const [viewer, candidate] of [

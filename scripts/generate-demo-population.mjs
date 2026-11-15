@@ -12,6 +12,18 @@ export function generatePopulation() {
   const pick = (values) => values[Math.floor(random() * values.length)];
   const templates = [
     {
+      interests: ["jazz", "cooking", "travel", "film"],
+      values: ["curiosity", "kindness", "honesty"],
+      bio: "Late-night jazz sets, a new recipe on Sunday, and a trip somewhere I can't pronounce yet.",
+      activities: ["cultural-event", "restaurant", "walk"],
+    },
+    {
+      interests: ["comedy", "gaming", "coffee", "running"],
+      values: ["humor", "loyalty", "growth"],
+      bio: "Comedy shows, a morning run and a board game night with people who don't mind losing.",
+      activities: ["cultural-event", "coffee", "sport"],
+    },
+    {
       interests: ["hiking", "cooking", "music", "coffee"],
       values: ["kindness", "curiosity", "family"],
       bio: "I make time for fresh air, home cooking, and conversations that go somewhere.",
@@ -50,24 +62,27 @@ export function generatePopulation() {
   ];
   const names = {
     woman: [
-      "Aida",
+      "Priya",
       "Dana",
-      "Mira",
-      "Alina",
-      "Sara",
+      "Mia",
+      "Camila",
+      "Sarah",
       "Nadia",
-      "Leila",
-      "Dina",
-      "Zara",
+      "Keisha",
+      "Grace",
+      "Zoe",
       "Amelia",
       "Riley",
       "Hannah",
+      "Sofia",
+      "Lauren",
+      "Mei",
     ],
     man: [
-      "Arman",
-      "Timur",
-      "Daniyar",
-      "Ilyas",
+      "Marcus",
+      "Diego",
+      "Ethan",
+      "Jordan",
       "Adam",
       "Ryan",
       "Noah",
@@ -76,6 +91,9 @@ export function generatePopulation() {
       "Oscar",
       "Leo",
       "Max",
+      "Andre",
+      "Kevin",
+      "Luis",
     ],
     nonbinary: [
       "Robin",
@@ -90,14 +108,33 @@ export function generatePopulation() {
       "Ash",
       "Blair",
       "Morgan",
+      "Jesse",
+      "Casey",
+      "Avery",
     ],
   };
+  // US demo cities. New York City is the default, so it has the most people.
   const cities = [
-    { city: "Astana", count: 72, tz: "Asia/Almaty" },
-    { city: "Almaty", count: 30, tz: "Asia/Almaty" },
-    { city: "New York City", count: 30, tz: "America/New_York" },
-    { city: "San Francisco", count: 30, tz: "America/Los_Angeles" },
+    { city: "New York City", count: 54, tz: "America/New_York" },
+    { city: "San Francisco", count: 36, tz: "America/Los_Angeles" },
+    { city: "Chicago", count: 36, tz: "America/Chicago" },
+    { city: "Austin", count: 36, tz: "America/Chicago" },
   ];
+  // Optional Money & Lifestyle answers: some people share all, some a few,
+  // some none, and some answered but chose not to share.
+  const money = (i) => {
+    const answered = i % 5 !== 4;
+    const v = (values) => (answered && random() < 0.8 ? pick(values) : null);
+    return {
+      firstDates: v(["budget-friendly", "budget-friendly", "mix", "treat"]),
+      spending: v(["saver", "balanced", "balanced", "spender"]),
+      purchases: v(["planned", "mix", "spontaneous"]),
+      experiences: v(["modest", "moderate", "generous"]),
+      priority: v(["security", "experiences", "shared-goals", "independence"]),
+      talking: v(["open", "when-serious", "when-serious", "private"]),
+      shareWithMatches: answered && i % 7 !== 5,
+    };
+  };
   const profiles = [],
     planning = {};
   for (const { city, count, tz } of cities)
@@ -169,6 +206,7 @@ export function generatePopulation() {
         fictional: true,
         blockedIds: [],
         readyToConnect: !(i >= 27 && i % 7 === 6),
+        money: money(i),
       });
       const slots =
         i % 3 === 0

@@ -36,3 +36,34 @@ export function speechError(code: string) {
     return "The browser speech service could not be reached. Your existing text is safe; continue by typing or try again.";
   return "Speech recognition stopped. Review the captured text or continue by typing.";
 }
+
+// ---------- Spoken replies (browser speechSynthesis) ----------
+export type VoiceLike = {
+  name: string;
+  lang: string;
+  voiceURI: string;
+  localService?: boolean;
+};
+const NATURAL =
+  /natural|neural|online|enhanced|premium|google us english|aria|jenny|guy|samantha|ava|allison|evan/i;
+/**
+ * English voices only, best first: en-US, then voices whose names suggest a
+ * natural/neural engine, then other English locales. The browser decides
+ * which voices exist; nothing is downloaded or sent anywhere by us.
+ */
+export function rankVoices<T extends VoiceLike>(voices: T[]): T[] {
+  const score = (v: T) =>
+    (v.lang.toLowerCase().replace("_", "-") === "en-us" ? 4 : 0) +
+    (NATURAL.test(v.name) ? 2 : 0) +
+    (v.lang.toLowerCase().startsWith("en") ? 1 : 0);
+  return voices
+    .filter((v) => v.lang.toLowerCase().startsWith("en"))
+    .sort((a, b) => score(b) - score(a) || a.name.localeCompare(b.name));
+}
+/** Short, natural pacing: speak at most the first ~60 words of a reply. */
+export function speakableText(text: string, maxWords = 60) {
+  const words = text.replace(/\s+/g, " ").trim().split(" ");
+  return words.length <= maxWords
+    ? words.join(" ")
+    : `${words.slice(0, maxWords).join(" ")}…`;
+}

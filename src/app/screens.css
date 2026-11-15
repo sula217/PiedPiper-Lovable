@@ -3231,3 +3231,310 @@ label > small {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ---------- Coach Mode ("Ask your matchmaker") ---------- */
+.coach-panel {
+  margin-top: var(--s-5);
+  padding: var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper);
+  display: grid;
+  gap: var(--s-3);
+}
+.coach-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--s-3);
+  align-items: start;
+}
+.coach-head h3 {
+  font-family: var(--display);
+  font-size: var(--t-lg);
+  margin: 0 0 2px;
+}
+.coach-head p {
+  margin: 0;
+  color: var(--muted-ink);
+  font-size: var(--t-sm);
+}
+.coach-left {
+  font-size: var(--t-xs);
+  color: var(--sage-700);
+  background: var(--sage-50);
+  border: 1px solid var(--sage-200);
+  border-radius: 999px;
+  padding: 3px 10px;
+  white-space: nowrap;
+}
+.coach-form {
+  display: flex;
+  gap: var(--s-2);
+}
+.coach-form input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  padding: 9px 12px;
+  font: inherit;
+  font-size: var(--t-sm);
+  background: var(--ivory);
+}
+.coach-form input:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 1px;
+}
+.coach-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+.coach-chips button {
+  border: 1px solid var(--line-strong);
+  background: var(--cream);
+  color: var(--ink-2);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: var(--t-xs);
+  cursor: pointer;
+}
+.coach-chips button:hover:not(:disabled) {
+  border-color: var(--terracotta);
+  color: var(--terracotta-700);
+}
+.coach-chips button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.coach-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.coach-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-3);
+  font-size: var(--t-sm);
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--terracotta-50);
+}
+.coach-list small {
+  color: var(--sage-700);
+  white-space: nowrap;
+}
+.coach-list small.unknown {
+  color: var(--amber-700);
+}
+.coach-tag {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--terracotta-700);
+  background: var(--terracotta-100);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+.verdict .next-step {
+  margin-top: var(--s-2);
+}
+.private-take {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted-ink);
+}
+@media (max-width: 640px) {
+  .coach-head {
+    grid-template-columns: auto 1fr;
+  }
+  .coach-left {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+  .coach-list li {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+/* ---------- Break the ice with Piper ---------- */
+.icebreakers {
+  margin: var(--s-3) var(--s-4) 0;
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+  display: grid;
+  gap: var(--s-3);
+}
+.ice-head h3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-family: var(--display);
+  font-size: var(--t-lg);
+}
+.ice-head small {
+  color: var(--muted-ink);
+}
+.icebreakers ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-2);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.icebreakers li {
+  border-radius: 12px;
+  background: var(--cream);
+  padding: var(--s-3);
+  display: grid;
+  gap: 6px;
+  align-content: start;
+}
+.icebreakers li p {
+  margin: 0;
+  font-size: var(--t-sm);
+}
+.ice-tone {
+  font-size: var(--t-xs);
+  color: var(--terracotta-700);
+  font-weight: 600;
+}
+.ice-tone em {
+  font-style: normal;
+  color: var(--sage-700);
+  font-weight: 500;
+}
+.ice-actions,
+.ice-live {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+}
+
+/* ---------- Landing hook & pricing ---------- */
+.lp-hook {
+  margin-top: 6px;
+  font-family: var(--display);
+  font-style: italic;
+  color: var(--terracotta-700);
+  font-size: var(--t-lg);
+}
+.pricing-page .pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--s-5);
+  margin: var(--s-6) 0;
+}
+.plan-card {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: var(--s-6);
+  background: var(--paper);
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+}
+.plan-card.plus {
+  border-color: var(--terracotta);
+  background: var(--terracotta-50);
+}
+.plan-card h2 {
+  margin: 0;
+}
+.plan-card ul,
+.plan-everyone ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.plan-card li,
+.plan-everyone li {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: var(--t-sm);
+}
+.plan-card li svg,
+.plan-everyone li svg {
+  flex: none;
+  margin-top: 3px;
+  color: var(--sage-700);
+}
+.plan-price {
+  margin: 0;
+}
+.plan-price strong {
+  font-family: var(--display);
+  font-size: var(--t-2xl);
+}
+.plan-price span,
+.plan-note {
+  color: var(--muted-ink);
+  font-size: var(--t-sm);
+}
+.plan-badge {
+  position: absolute;
+  top: var(--s-4);
+  right: var(--s-4);
+  font-size: var(--t-xs);
+  background: var(--terracotta);
+  color: var(--paper);
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+.plan-everyone {
+  border-radius: 16px;
+  background: var(--sage-50);
+  padding: var(--s-5);
+  margin-bottom: var(--s-6);
+}
+.plan-everyone h2 {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 0;
+}
+.pricing-faq div {
+  border-top: 1px solid var(--line);
+  padding: var(--s-3) 0;
+}
+.pricing-faq dt {
+  font-weight: 650;
+}
+.pricing-faq dd {
+  margin: 4px 0 0;
+  color: var(--ink-2);
+}
+
+.voice-settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  align-items: center;
+  font-size: var(--t-sm);
+}
+.voice-settings label {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.voice-settings select {
+  max-width: 220px;
+}
+.voice-state {
+  color: var(--muted-ink);
+  font-size: var(--t-xs);
+}

@@ -16,7 +16,7 @@ const seed = [
     "Lena",
     30,
     "woman",
-    "Astana",
+    "New York City",
     "long-term",
     "Architect of cozy spaces and very ambitious weekend plans. Usually found at a concert, in a bookstore, or taking the scenic route home with a coffee.",
     ["hiking", "music", "coffee", "art", "reading"],
@@ -31,7 +31,7 @@ const seed = [
     "Maya",
     29,
     "woman",
-    "Astana",
+    "New York City",
     "long-term",
     "A museum afternoon, a great meal, and a conversation that forgets about the time. That is my kind of day.",
     ["art", "cooking", "travel", "reading"],
@@ -46,7 +46,7 @@ const seed = [
     "Sophie",
     33,
     "woman",
-    "Astana",
+    "New York City",
     "long-term",
     "Teacher, trail wanderer, and enthusiastic home cook. Looking for something steady with room for adventure.",
     ["hiking", "cooking", "music", "gardening"],
@@ -61,7 +61,7 @@ const seed = [
     "Jules",
     31,
     "nonbinary",
-    "Astana",
+    "New York City",
     "long-term",
     "Making things, making playlists, and making space for the people I love.",
     ["art", "music", "reading", "cooking"],
@@ -76,7 +76,7 @@ const seed = [
     "Emma",
     28,
     "woman",
-    "Almaty",
+    "San Francisco",
     "long-term",
     "A slow Sunday enthusiast with a soft spot for old movies and new cities.",
     ["film", "travel", "reading"],
@@ -91,7 +91,7 @@ const seed = [
     "Nora",
     35,
     "woman",
-    "Astana",
+    "New York City",
     "life-partner",
     "Building a life full of dinner parties, garden projects, and dependable people.",
     ["gardening", "cooking", "hiking"],
@@ -106,7 +106,7 @@ const seed = [
     "Ava",
     27,
     "woman",
-    "Astana",
+    "New York City",
     "exploring",
     "Always collecting a new story, a new recipe, or a new stamp in my passport.",
     ["travel", "cooking", "dance"],
@@ -121,7 +121,7 @@ const seed = [
     "Claire",
     38,
     "woman",
-    "Astana",
+    "New York City",
     "long-term",
     "A runner who reads novels, a lawyer who loves bad puns. Happy with a small, thoughtful circle.",
     ["running", "reading", "art"],
@@ -136,7 +136,7 @@ const seed = [
     "Iris",
     32,
     "woman",
-    "Astana",
+    "New York City",
     "long-term",
     "Coffee, ceramics, and a very opinionated rescue cat. I appreciate people who mean what they say.",
     ["art", "reading", "coffee"],
@@ -151,7 +151,7 @@ const seed = [
     "Ellie",
     26,
     "woman",
-    "Astana",
+    "New York City",
     "long-term",
     "Live music, neighborhood walks, and a kitchen full of experiments.",
     ["music", "cooking", "walking"],
@@ -166,7 +166,7 @@ const seed = [
     "Daniel",
     32,
     "man",
-    "Astana",
+    "New York City",
     "long-term",
     "Designing useful things and plotting the next trail. I make a genuinely good Sunday breakfast.",
     ["hiking", "cooking", "art", "reading"],
@@ -181,7 +181,7 @@ const seed = [
     "Marcus",
     35,
     "man",
-    "Astana",
+    "New York City",
     "long-term",
     "Community-minded, book-obsessed, and always up for a friendly game of tennis.",
     ["reading", "tennis", "cooking"],
@@ -196,7 +196,7 @@ const seed = [
     "Theo",
     29,
     "man",
-    "Astana",
+    "New York City",
     "long-term",
     "A musician with a day job and a carefully curated list of little restaurants.",
     ["music", "art", "cooking"],
@@ -211,7 +211,7 @@ const seed = [
     "Oliver",
     41,
     "man",
-    "Astana",
+    "New York City",
     "life-partner",
     "A dad, a cyclist, and a believer in showing up. Looking for a lasting partnership.",
     ["cycling", "cooking", "travel"],
@@ -226,7 +226,7 @@ const seed = [
     "Sam",
     30,
     "nonbinary",
-    "Astana",
+    "New York City",
     "long-term",
     "A nature nerd, patient listener, and maker of very elaborate picnic sandwiches.",
     ["hiking", "gardening", "reading"],
@@ -256,7 +256,7 @@ const seed = [
     "Alex",
     34,
     "nonbinary",
-    "Astana",
+    "New York City",
     "life-partner",
     "Quiet confidence, loud laughter. I love cooking for people and building a sense of home.",
     ["cooking", "art", "film"],
@@ -271,7 +271,7 @@ const seed = [
     "James",
     44,
     "man",
-    "Astana",
+    "New York City",
     "long-term",
     "Photographer and weekend sailor. Hoping to meet someone with their own passions and a generous heart.",
     ["photography", "sailing", "reading"],
@@ -282,6 +282,47 @@ const seed = [
     "balanced",
   ],
 ] as const;
+// Optional Money & Lifestyle answers for a few hand-written characters. Others
+// have not answered (unknown is never treated as a difference).
+const legacyMoney: Record<string, Profile["money"]> = {
+  lena: {
+    firstDates: "budget-friendly",
+    spending: "balanced",
+    purchases: "planned",
+    experiences: "moderate",
+    priority: "shared-goals",
+    talking: "when-serious",
+    shareWithMatches: true,
+  },
+  maya: {
+    firstDates: "treat",
+    spending: "spender",
+    purchases: "spontaneous",
+    experiences: "generous",
+    priority: "experiences",
+    talking: "open",
+    shareWithMatches: true,
+  },
+  sophie: {
+    firstDates: "budget-friendly",
+    spending: "saver",
+    purchases: "planned",
+    experiences: "modest",
+    priority: "security",
+    talking: "open",
+    // Answered, but chose not to share: never used for matching.
+    shareWithMatches: false,
+  },
+  jules: {
+    firstDates: "mix",
+    spending: null,
+    purchases: "mix",
+    experiences: null,
+    priority: null,
+    talking: "when-serious",
+    shareWithMatches: true,
+  },
+};
 export const legacyDemoProfiles: Profile[] = seed.map((s, i) => ({
   ...blankProfile(s[0]),
   name: s[1],
@@ -308,6 +349,7 @@ export const legacyDemoProfiles: Profile[] = seed.map((s, i) => ({
     desired: { children: s[9], smoking: "no", drinking: null, pace: null },
     hard: ["smoking"],
   },
+  money: legacyMoney[s[0]] ?? blankProfile().money,
 }));
 export const demoProfiles: Profile[] = [
   ...legacyDemoProfiles,
@@ -319,7 +361,7 @@ export function sampleProfile(): Profile {
     name: "Jamie",
     age: 32,
     gender: "man",
-    city: "Astana",
+    city: "New York City",
     intent: "long-term",
     bio: "Curious by nature. Happiest on a hiking trail, at a live concert, over a good coffee, or getting lost in an art museum. Looking for a kind partner to build something lasting.",
     interests: ["hiking", "music", "coffee", "cooking", "art"],
@@ -344,18 +386,27 @@ export function sampleProfile(): Profile {
       },
       hard: ["smoking", "children"],
     },
+    money: {
+      firstDates: "budget-friendly",
+      spending: "balanced",
+      purchases: "planned",
+      experiences: "moderate",
+      priority: null,
+      talking: "when-serious",
+      shareWithMatches: true,
+    },
   };
 }
 export const starterMessages = [
-  "I'm Jamie, 32, a man living in Astana. I'm interested in women and nonbinary people ages 27 to 36 nearby, and I want a long-term relationship.",
+  "I'm Jamie, 32, a man living in New York City. I'm interested in women and nonbinary people ages 27 to 36 nearby, and I want a long-term relationship.",
   "I love hiking, live music, coffee, cooking, and art. Kindness, curiosity, and family matter to me. I want children, don't smoke, drink socially, and enjoy an active lifestyle. I need a partner who doesn't smoke and wants children too.",
 ];
 
 // ---------- Phase 2: fictional availability and date preferences ----------
 // General weekly patterns only. Cases are chosen deliberately for the demo:
 // overlap (Lena), no overlap (Maya), not shared (Sophie), not entered (Jules),
-// not open to meeting soon (Nora), and a different time zone (Ben, who keeps
-// Moscow time). Everyone else uses Kazakhstan time (Asia/Almaty, UTC+5).
+// not open to meeting soon (Nora), and a different time zone (Ben, who lives
+// in Chicago). Everyone else uses New York time (America/New_York).
 type Pattern = Partial<Record<Weekday, TimeWindow[]>>;
 const fictionalPlanning = (
   pattern: Pattern | null,
@@ -370,7 +421,7 @@ const fictionalPlanning = (
 ): Planning => ({
   availability: pattern
     ? {
-        timeZone: options.timeZone ?? "Asia/Almaty",
+        timeZone: options.timeZone ?? "America/New_York",
         slots: slotsFromGrid(pattern),
         openToMeetingSoon: options.openSoon ?? true,
         preference: options.preference ?? "either",
@@ -427,11 +478,15 @@ export const demoPlanning: Record<string, Planning> = {
   ),
   ben: fictionalPlanning(
     { sat: ["afternoon", "evening"] },
-    { timeZone: "Europe/Moscow", activities: ["sport"] },
+    { timeZone: "America/Chicago", activities: ["sport"] },
   ),
+  emma: fictionalPlanning(eveningsAndSunday, {
+    timeZone: "America/Los_Angeles",
+    budget: "moderate",
+    activities: ["coffee", "walk"],
+  }),
   ...Object.fromEntries(
     [
-      "emma",
       "ava",
       "claire",
       "iris",

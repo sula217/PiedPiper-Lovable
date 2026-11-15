@@ -43,7 +43,7 @@ describe("Reproducible expanded demo population", () => {
     expect(demoPlanning.sophie.availability?.shareWithMatches).toBe(false);
   });
   it("includes positive, negative, uncertain, and paused examples across four cities", () => {
-    for (const city of ["Astana", "Almaty", "New York City", "San Francisco"])
+    for (const city of ["New York City", "San Francisco", "Chicago", "Austin"])
       expect(
         demoProfiles.filter((p) => p.city === city).length,
       ).toBeGreaterThanOrEqual(30);
@@ -55,7 +55,7 @@ describe("Reproducible expanded demo population", () => {
   });
   it("provides multiple reciprocal candidates for 36 city/gender/goal combinations", () => {
     const coverage = [];
-    for (const city of ["Astana", "Almaty", "New York City", "San Francisco"])
+    for (const city of ["New York City", "San Francisco", "Chicago", "Austin"])
       for (const gender of ["woman", "man", "nonbinary"] as const)
         for (const intent of [
           "long-term",

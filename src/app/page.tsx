@@ -29,7 +29,7 @@ const steps = [
   {
     icon: CalendarHeart,
     title: "Make it real",
-    text: "When you both say yes, compare general availability and pick from verified cafés, parks, concerts and museums for a first date.",
+    text: "When you both say yes, Piper suggests openers, compares general availability and finds real cafés, parks, venues and museums in your city.",
   },
 ];
 
@@ -42,10 +42,11 @@ export default function Home() {
           <a href="#how-it-works">How it works</a>
           <a href="#the-difference">The Piper difference</a>
           <a href="#safety">Safety & privacy</a>
+          <Link href="/pricing">Pricing</Link>
         </nav>
         <Button asChild size="sm">
           <Link href="/onboarding">
-            Get started <ArrowUpRight size={15} />
+            Try the live AI demo <ArrowUpRight size={15} />
           </Link>
         </Button>
       </header>
@@ -56,7 +57,7 @@ export default function Home() {
               <span className="eyebrow-star" aria-hidden="true">
                 ✳
               </span>
-              A more human way to date
+              Intentional dating for US singles
             </span>
             <h1>
               Stop swiping.
@@ -74,21 +75,28 @@ export default function Home() {
               <strong>Your AI finds the people.</strong> You build the
               relationship.
             </p>
+            <p className="lp-hook">
+              Your AI meets their AI. You decide if there’s a spark.
+            </p>
             <div className="lp-actions">
               <Button asChild size="lg">
                 <Link href="/onboarding">
-                  Talk to Piper <ArrowUpRight size={18} />
+                  Try the live AI demo <ArrowUpRight size={18} />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
                 <Link href="/onboarding?demo=1">
-                  Try interactive demo <ArrowRight size={18} />
+                  Watch the scripted demo <ArrowRight size={18} />
                 </Link>
               </Button>
             </div>
             <div className="lp-proof">
               <span className="avatar-stack" aria-hidden="true">
-                {["fictional-astana-003", "fictional-astana-010", "maya"].map(
+                {[
+                  "fictional-new-york-city-003",
+                  "fictional-chicago-010",
+                  "maya",
+                ].map(
                   (id) => (
                     <span key={id}>
                       <Portrait id={id} />
@@ -97,8 +105,8 @@ export default function Home() {
                 )}
               </span>
               <span>
-                Explore with 180 fictional demo profiles in Astana. No sign-up,
-                adults 18+.
+                No sign-up. Live AI with 180 fictional adults in New York City,
+                San Francisco, Chicago and Austin. 18+.
               </span>
             </div>
           </div>
@@ -205,8 +213,9 @@ export default function Home() {
               <CalendarHeart size={28} />
               <h3>Real date ideas</h3>
               <p>
-                Verified cafés, parks, concerts and museums in Astana and
-                Almaty, matched to the times you’re both free.
+                Real cafés, parks, music venues and museums from OpenStreetMap
+                in NYC, San Francisco, Chicago and Austin, matched to when you’re
+                both free. Nothing invented, nothing booked for you.
               </p>
             </article>
           </div>
@@ -281,13 +290,19 @@ export default function Home() {
             Ready to meet someone who gets <em>you?</em>
           </h2>
           <p>Let Piper introduce you to people who truly fit.</p>
-          <Button asChild size="lg" variant="outline">
-            <Link href="/onboarding">
-              Get started <ArrowUpRight size={18} />
-            </Link>
-          </Button>
+          <div className="lp-actions">
+            <Button asChild size="lg">
+              <Link href="/onboarding">
+                Try the live AI demo <ArrowUpRight size={18} />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/pricing">See Free & Plus</Link>
+            </Button>
+          </div>
           <small>
-            A fictional, interactive demo. No sign-up required. Adults 18+.
+            Use fictional details. No email, password or card required. Adults
+            18+ in the US.
           </small>
         </section>
       </main>
@@ -297,9 +312,10 @@ export default function Home() {
         <div>
           <Link href="/privacy">Privacy & safety</Link>
           <Link href="/about-matching">How matching works</Link>
+          <Link href="/pricing">Pricing</Link>
           <Link href="/account">Your account</Link>
           <a
-            href="https://github.com/akzholkarsybek/PiedPiper"
+            href="https://github.com/sula217/PiedPiper-Lovable"
             target="_blank"
             rel="noreferrer"
           >

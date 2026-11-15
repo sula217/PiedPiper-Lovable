@@ -39,8 +39,8 @@ import { recommend } from "../src/lib/matching";
 import { buildApprovedContext } from "../src/lib/agents";
 import { sampleProfile } from "../src/lib/fixtures";
 
-// Monday 16 Nov 2026, 00:00 in Astana (Asia/Almaty, UTC+5).
-const FROM = new Date("2026-11-15T19:00:00.000Z");
+// Monday 16 Nov 2026, 00:00 in New York (America/New_York, UTC-5).
+const FROM = new Date("2026-11-16T05:00:00.000Z");
 const jamie = () => ({ ...sampleProfile(), approved: true });
 const sharing = (p = samplePlanning()) => ({
   ...p,
@@ -64,9 +64,9 @@ describe("Mutual availability", () => {
     );
     expect(r.status).toBe("ok");
     expect(r.status === "ok" && r.windows).toEqual([
-      { start: "2026-11-18T12:00:00.000Z", end: "2026-11-18T17:00:00.000Z" }, // Wed evening
-      { start: "2026-11-21T03:00:00.000Z", end: "2026-11-21T07:00:00.000Z" }, // Sat morning
-      { start: "2026-11-22T07:00:00.000Z", end: "2026-11-22T17:00:00.000Z" }, // Sun afternoon + evening (merged)
+      { start: "2026-11-18T22:00:00.000Z", end: "2026-11-19T03:00:00.000Z" }, // Wed evening
+      { start: "2026-11-21T13:00:00.000Z", end: "2026-11-21T17:00:00.000Z" }, // Sat morning
+      { start: "2026-11-22T17:00:00.000Z", end: "2026-11-23T03:00:00.000Z" }, // Sun afternoon + evening (merged)
     ]);
   });
   it("reports no overlap instead of inventing one", () => {
@@ -166,8 +166,8 @@ function connected(): DemoState {
 }
 const satSlot = () =>
   proposalSlot({
-    start: "2026-11-21T03:00:00.000Z",
-    end: "2026-11-21T07:00:00.000Z",
+    start: "2026-11-21T13:00:00.000Z",
+    end: "2026-11-21T17:00:00.000Z",
   });
 const propose = (s: DemoState) =>
   reduceDemo(s, {

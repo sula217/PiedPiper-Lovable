@@ -9,11 +9,23 @@ import { activityKinds } from "../activities";
  * guessed: no invented names, addresses, coordinates, prices, ratings or
  * opening hours, and nothing implies a place is open or tickets are available.
  */
-export const cityIds = ["astana", "almaty"] as const;
+/** US demo cities first; the Kazakhstan cities are kept as legacy data only. */
+export const usCityIds = [
+  "new-york",
+  "san-francisco",
+  "chicago",
+  "austin",
+] as const;
+export const legacyCityIds = ["astana", "almaty"] as const;
+export const cityIds = [...usCityIds, ...legacyCityIds] as const;
 export type CityId = (typeof cityIds)[number];
+export type UsCityId = (typeof usCityIds)[number];
 export type CityConfig = {
   id: CityId;
   name: string;
+  /** Short label for compact UI, e.g. "NYC". */
+  short: string;
+  state: string | null;
   country: string;
   countryCode: string;
   timeZone: string;
@@ -23,12 +35,54 @@ export type CityConfig = {
   /** Budget bands in the local currency, used only for verified prices. */
   budgetMax: { free: number; low: number; moderate: number };
 };
-// Adding a city (e.g. a US city later) means adding an entry here and data or
-// a provider for it; the engine and interface are city-agnostic.
+const usBudget = { free: 0, low: 25, moderate: 75 };
+const us = { country: "United States", countryCode: "US", currency: "USD" };
 export const cities: Record<CityId, CityConfig> = {
+  "new-york": {
+    id: "new-york",
+    name: "New York City",
+    short: "NYC",
+    state: "New York",
+    ...us,
+    timeZone: "America/New_York",
+    bbox: [40.7, -74.02, 40.8, -73.94],
+    budgetMax: usBudget,
+  },
+  "san-francisco": {
+    id: "san-francisco",
+    name: "San Francisco",
+    short: "SF",
+    state: "California",
+    ...us,
+    timeZone: "America/Los_Angeles",
+    bbox: [37.74, -122.51, 37.81, -122.39],
+    budgetMax: usBudget,
+  },
+  chicago: {
+    id: "chicago",
+    name: "Chicago",
+    short: "Chicago",
+    state: "Illinois",
+    ...us,
+    timeZone: "America/Chicago",
+    bbox: [41.85, -87.68, 41.95, -87.6],
+    budgetMax: usBudget,
+  },
+  austin: {
+    id: "austin",
+    name: "Austin",
+    short: "Austin",
+    state: "Texas",
+    ...us,
+    timeZone: "America/Chicago",
+    bbox: [30.24, -97.8, 30.31, -97.7],
+    budgetMax: usBudget,
+  },
   astana: {
     id: "astana",
     name: "Astana",
+    short: "Astana",
+    state: null,
     country: "Kazakhstan",
     countryCode: "KZ",
     timeZone: "Asia/Almaty",
@@ -39,6 +93,8 @@ export const cities: Record<CityId, CityConfig> = {
   almaty: {
     id: "almaty",
     name: "Almaty",
+    short: "Almaty",
+    state: null,
     country: "Kazakhstan",
     countryCode: "KZ",
     timeZone: "Asia/Almaty",
@@ -47,7 +103,31 @@ export const cities: Record<CityId, CityConfig> = {
     budgetMax: { free: 0, low: 5000, moderate: 15000 },
   },
 };
-export const DEFAULT_CITY: CityId = "astana";
+export const DEFAULT_CITY: UsCityId = "new-york";
+/** City names offered in onboarding and the profile editor (US demo). */
+export const usCityNames = usCityIds.map((id) => cities[id].name);
+const cityAliases: [RegExp, CityId][] = [
+  [/\b(new york|nyc|manhattan|brooklyn|queens|bronx)\b/, "new-york"],
+  [/\b(san francisco|sf|bay area)\b/, "san-francisco"],
+  [/\bchicago\b/, "chicago"],
+  [/\baustin\b/, "austin"],
+  [/\b(astana|nur-sultan)\b/, "astana"],
+  [/\balmaty\b/, "almaty"],
+];
+/** Maps a free-text profile city to a supported city id, if any. */
+export function cityIdFor(city: string | null | undefined): CityId | null {
+  const s = (city ?? "").toLocaleLowerCase("en-US");
+  return cityAliases.find(([r]) => r.test(s))?.[1] ?? null;
+}
+/** Formats a whole-number price in a currency. */
+export function formatMoney(amount: number, currency: string) {
+  const n = amount.toLocaleString("en-US");
+  return currency === "USD"
+    ? `$${n}`
+    : currency === "KZT"
+      ? `₸${n}`
+      : `${n} ${currency}`;
+}
 
 export const placeCategories = [
   "cafe",
@@ -87,7 +167,7 @@ export const placeSchema = z.object({
   id: z.string().min(3).max(80),
   type: z.literal("place"),
   name: z.string().min(1).max(120),
-  /** The name as recorded by the source, when it differs (e.g. Kazakh/Russian). */
+  /** The name as recorded by the source, when it differs from `name`. */
   localName: z.string().max(120).nullable(),
   city: z.enum(cityIds),
   country: z.string().max(60),

@@ -21,6 +21,24 @@ Each person has a personal AI matchmaker. For a promising, already-eligible intr
 
 This is a working hackathon application, not a scientifically validated compatibility predictor or a launch-ready public dating service.
 
+## US hackathon edition (current)
+
+**Tell Piper about yourself. Your AI meets their AI. Watch them discover the connection. You decide whether to meet.**
+
+The public experience now targets adults (18+) in the **United States**. Proposed initial segment: urban singles about 24–39 who want intentional relationships (a hypothesis, not validated traction).
+
+- **Cities:** New York City (default), San Francisco, Chicago, Austin. US time zones, USD. Kazakhstan data from the earlier edition is kept only as legacy records and is not offered in the public UI.
+- **180 fictional adults:** 18 hand-written characters (stable IDs, now in US cities) + 162 generated (`npm run demo:generate`, seeded, no AI calls): NYC 54, SF 36, Chicago 36, Austin 36. Some are incomplete, paused, or intentionally incompatible. Old browser state is migrated (retired fixture IDs dropped; consented answers, decisions and messages kept).
+- **Try the live AI demo:** no sign-up. `/onboarding` sends the guest's fictional answers to Gemini through the server (`/api/ai/onboard`). Piper opens with one question and asks one primary question at a time (`PIPER_INSTRUCTION` in `src/lib/onboarding.ts`).
+- **Agent conversations, one message at a time:** `/api/ai/agents` streams NDJSON. Each message is a separate Gemini call with its own agent context; Agent B receives Agent A's actual verified message; each turn is validated and streamed as soon as it is ready (`no-transform`, `X-Accel-Buffering: no`). The UI shows "Agent A/B is thinking…", auto-scrolls, keeps completed turns on failure and names the agent that failed. Labels: **LIVE AI**, **SCRIPTED DEMO**, or unavailable.
+- **Coach Mode — "Ask your matchmaker":** suggest a question during an investigation. It is screened (relevance + safety) on client and server, queued while a call is running, and asked by your own matchmaker in the next round without restarting the conversation. Free: 2 per introduction. Unanswerable topics are marked unknown.
+- **Your matchmaker's take:** private, evidence-backed recap (common ground, differences, unknowns, suggested next step). No chemistry scores.
+- **Money & Lifestyle (optional):** broad styles only (first-date budget, saving vs. spending, planned vs. spontaneous purchases, travel budget, financial priority, comfort talking about money). Never salary, debt, credit or bank data; never inferred. Used only with explicit consent, as explanations and agent facts; ranking scores and eligibility are unchanged.
+- **Break the ice with Piper:** after mutual interest, three openers (casual, playful, thoughtful): grounded templates by default, optionally personalized by one verified Gemini call (`/api/ai/starters`). The person edits and sends; AI never sends.
+- **Date places:** 66 real OpenStreetMap records (retrieved 2026-11-15 via Overpass; `scripts/build-us-places.mjs`). Only OSM tags are stored (name, address, coordinates, website). No ratings, prices or hours; parks are "free to enter". There are **no dated US events** because no permitted live event source is configured, so concert venues are suggested instead.
+- **Voice:** browser SpeechRecognition (en-US) for input; browser speechSynthesis for optional spoken replies, now choosing the most natural available en-US voice, with a voice picker, speed control and "Piper is speaking" state. Gemini TTS / Live API are not used (not configured or budgeted).
+- **Pricing (`/pricing`):** Free ($0) and the proposed **Pied Piper Plus ($19/month, coming soon)**. No checkout exists.
+
 ## Quick start
 
 Use Node.js 24 and npm. The package name is `pied-piper`, regardless of the checkout folder name.

@@ -24,6 +24,7 @@ import {
   type VenueRef,
 } from "./planning";
 import { sessionSchema, type AgentSession } from "./agents";
+import { cityIdFor } from "./places/types";
 import { dateIdeasResultSchema, type DateIdeasResult } from "./dates";
 import { suggestionSchema, type Suggestion } from "./enrichment";
 import {
@@ -104,41 +105,69 @@ export function initialDemo(): DemoState {
     introducedIds: [],
   };
 }
+const isLegacyCity = (city: string) => {
+  const id = cityIdFor(city);
+  return id === "astana" || id === "almaty";
+};
 /** Upgrade any supported saved state to the current schema. Throws if invalid. */
 export function migrateDemo(raw: unknown): DemoState {
   const version = (raw as { version?: unknown } | null)?.version;
   if (version === 2) {
     const saved = stateSchema.parse(raw);
-    // Append only new stable fixture IDs. Never replace consented answers,
-    // blocks, decisions, sessions, messages, proposals, or saved planning.
-    const ids = new Set(saved.candidates.map((p) => p.id));
+    // US relaunch: generated Kazakhstan fixtures were retired, and the
+    // hand-written characters moved to US cities. Drop retired fixture IDs,
+    // move kept characters (and their fictional time zone) to their current
+    // city, and append new stable IDs. Consented answers, blocks, decisions,
+    // messages and proposals are never replaced.
+    const current = new Map(demoProfiles.map((p) => [p.id, p]));
+    const kept = saved.candidates
+      .filter((p) => current.has(p.id))
+      .map((p) =>
+        isLegacyCity(p.city) ? { ...p, city: current.get(p.id)!.city } : p,
+      );
+    const ids = new Set(kept.map((p) => p.id));
+    const planning = { ...structuredClone(demoPlanning) };
+    for (const [id, plan] of Object.entries(saved.planning))
+      planning[id] =
+        id !== GUEST_ID &&
+        demoPlanning[id] &&
+        plan.availability?.timeZone.startsWith("Asia/")
+          ? structuredClone(demoPlanning[id])
+          : plan;
     return {
       ...saved,
       candidates: [
-        ...saved.candidates,
+        ...kept,
         ...structuredClone(demoProfiles.filter((p) => !ids.has(p.id))),
       ],
-      planning: { ...structuredClone(demoPlanning), ...saved.planning },
+      planning,
+      agentSessions: Object.fromEntries(
+        Object.entries(saved.agentSessions).filter(([id]) => current.has(id)),
+      ),
+      introducedIds: saved.introducedIds.filter((id) => current.has(id)),
     };
   }
   const v1 = legacyV1Schema.parse(raw);
   const fresh = initialDemo();
-  return stateSchema.parse({
-    ...v1,
-    candidates: [
-      ...v1.candidates,
-      ...fresh.candidates.filter(
-        (p) => !v1.candidates.some((old) => old.id === p.id),
-      ),
-    ],
-    version: 2,
-    planning: fresh.planning,
-    agentSessions: {},
-    dateIdeas: {},
-    proposals: [],
-    enrichment: [],
-    social: emptySocial(),
-  });
+  // Then apply the current (v2) upgrade, e.g. the US relaunch.
+  return migrateDemo(
+    stateSchema.parse({
+      ...v1,
+      candidates: [
+        ...v1.candidates,
+        ...fresh.candidates.filter(
+          (p) => !v1.candidates.some((old) => old.id === p.id),
+        ),
+      ],
+      version: 2,
+      planning: fresh.planning,
+      agentSessions: {},
+      dateIdeas: {},
+      proposals: [],
+      enrichment: [],
+      social: emptySocial(),
+    }),
+  );
 }
 export type DemoAction =
   | { type: "profile"; profile: Profile }
